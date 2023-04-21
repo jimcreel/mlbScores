@@ -6,22 +6,38 @@ import axios from 'axios'
 import MLBStatsAPI from "mlb-stats-api";
 import Ticker from '../Ticker'
 
-console.log(typeof(MLBStatsAPI))
+
 
 
 export default function App() {
     
+    const [currentGame, setCurrentGame] = useState({});
     const [schedule, setSchedule] = useState([]);
-    const [game, setGame] = useState({});
+    const [currentDate, setCurrentDate] = useState(new Date());
+    async function getSchedule() {
+        const response = await axios.get(`https://statsapi.mlb.com/api/v1/schedule/?sportId=1`)
+        setSchedule(response.data)
+    }
+    
+    
+    useEffect(() => {
+        const today = new Date();
+        today.setDate(today.getDate());
+
+        setCurrentDate(`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`);
+        getSchedule()
+        
+        }, [])
+
 
     
         
         return (
             <>
-            <Ticker />
+            <Ticker schedule={schedule} setGame={setCurrentGame}/>
             <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/game" element={<Game game={game} />} />
+                <Route path="/game" element={<Game game={currentGame} />} />
 
             </Routes>
 

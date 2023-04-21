@@ -1,5 +1,7 @@
 export default function Game(props){
-    const game = props.game;
-    console.log(game)
     
+    return(
+        <h1> Game Page </h1>
+    )
+
 }
