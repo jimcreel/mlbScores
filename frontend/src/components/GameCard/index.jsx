@@ -26,24 +26,38 @@ export default function GameCard(props) {
 
     let cardElement = <p> Loading... </p>;
 
-    if (game.status.statusCode == 'F') {
+    if (game.status.abstractGameState == 'Final') {
         cardElement = (
             <div className="flex flex-row  justify-around items-center align-baseline">
                 <img src={`/assets/${game.teams.away.team.id}.svg`} className="w-7" />
                 <p className="text-center text-xl">{game.teams.away.score}</p>
-                <p> @ </p>
+                <p> F </p>
                 <img src={`/assets/${game.teams.home.team.id}.svg`} className="w-7"/>
                 <p className="text-center text-xl">{game.teams.home.score}</p>
             </div>
         )
-    } else if (game.status.statusCode == 'I') {
+    } else if (game.status.statusCode == 'In Progress') {
        
         if (tickerGame.gameData) {
             let awayId = tickerGame.gameData.teams.away.id;
             let homeId = tickerGame.gameData.teams.home.id;
             let awayScore = tickerGame.liveData.linescore.teams.away.runs;
             let homeScore = tickerGame.liveData.linescore.teams.home.runs;
-          
+            let outs = tickerGame.liveData.linescore.outs;
+            let runners = ''
+            if (!tickerGame.liveData.linescore.offense.first && !tickerGame.liveData.linescore.offense.second && !tickerGame.liveData.linescore.offense.third) {
+                runners = 'empty'
+            } else if (tickerGame.liveData.linescore.offense.first) {
+                runners += '1'
+                if (tickerGame.liveData.linescore.offense.second) {
+                    runners += '2'
+                    if (tickerGame.liveData.linescore.offense.third) {
+                        runners += '3'
+                    }
+                }
+            }
+
+            console.log('here is the runners string', + runners)
             cardElement = (
               <div className="flex items-center justify-between bg-gray-100 rounded-lg p-4">
                 <div className="flex items-center justify-between w-2/3">
@@ -61,17 +75,26 @@ export default function GameCard(props) {
                     <img src={`/assets/${homeId}.svg`} className="w-7 mr-2" />
                     <p className="text-xl font-bold">{homeScore}</p>
                   </div>
+                  <img src={`/assets/runners/${runners}.png`}/>
+                  <img src={`/assets/outs/${outs}.png`}/>
                 </div>
               </div>
             );
           }
           
     } else {   
+            let gameTime = new Date(game.gameDate);
+            let gameTimeString = gameTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            let awayRecord = game.teams.away.leagueRecord.wins + "-" + game.teams.away.leagueRecord.losses ;
+            let homeRecord = game.teams.home.leagueRecord.wins + "-" + game.teams.home.leagueRecord.losses ;
             cardElement = (
                 <div className="flex flex-row  justify-around items-center align-baseline">
-                    <img src={`/assets/${game.teams.away.team.id}.svg`} className="w-7" />
+                    <img src={`/assets/${game.teams.away.team.id}.svg`} className="w-7" /> 
                     <p> @ </p>
-                    <img src={`/assets/${game.teams.home.team.id}.svg`} className="w-7"/>
+                    <img src={`/assets/${game.teams.home.team.id}.svg`} className="w-7"/> 
+                    <br />
+                    <p className="text-center text-xs">{awayRecord}</p><p className="text-center text-xs">{gameTimeString}</p><p className="text-center text-xs">{homeRecord}</p>
+
                 </div>
             )
         } 
