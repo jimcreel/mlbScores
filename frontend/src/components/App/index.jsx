@@ -1,50 +1,53 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom"
 import HomePage from '../HomePage'
-import MLBStatsAPI from 'mlb-stats-api'
+import Game from '../Game'
+import axios from 'axios'
+import MLBStatsAPI from "mlb-stats-api";
 
+console.log(typeof(MLBStatsAPI))
 
 
 export default function App() {
-    const [stats, setStats] = useState({});
-    const mlb = new MLBStatsAPI();
+    
+    const [schedule, setSchedule] = useState([]);
+    const [game, setGame] = useState({});
 
-    async function getStats() {
-        const  response = await fetch('https://statsapi.mlb.com/api/v1/schedule/?sportId=1')
-        const data = await response.json()
-        return data
-      }
+    async function getSchedule() {
+        const response = await axios.get('https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1')
+        setSchedule(response.data)
+    }
+    
       
       useEffect(() => {
-        getStats().then(data => setStats(data));
-      }, []);
-      console.log(stats)
-      let schedule = <p> Loading... </p>
-        if (stats.dates) {
-            schedule = stats.dates.map((date) => {
+        getSchedule()
+        }, [])
+
+
+    
+      let scheduleElement = <p> Loading... </p>
+        if (schedule.dates) {
+            console.log(schedule.dates[0].games)
+            scheduleElement = schedule.dates[0].games.map((game) => {
                 return (
                     <div>
-                        <h1>{date.date}</h1>
-                        <ul>
-                            {date.games.map((game) => {
-                                return (
-                                    <li>
-                                        <Link to={`/game/${game.gamePk}`}>{game.teams.home.team.name} vs {game.teams.away.team.name}</Link>
-                                    </li>
-                                )
-                            })}
-                        </ul>
+                        <Link to="/game" onClick={() => setGame(game)}>{game.teams.away.team.name} @ {game.teams.home.team.name}</Link>
                     </div>
                 )
             })
         }
+
+        
     return (
         <>
-            {stats.dates && schedule}
+            {schedule.dates && scheduleElement}
             <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/game" element={<Game gameData={game}/>} />
+            
                 
             </Routes>
         </>
     );
-}
+
+    }
