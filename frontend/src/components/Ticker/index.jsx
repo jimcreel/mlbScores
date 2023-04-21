@@ -18,7 +18,7 @@ export default function Ticker() {
         }, [])
 
     async function handleGameClick() {
-        const response = await axios.get(`https://statsapi.mlb.com/api/v1/game/${game.gamePk}/feed/live`)
+        const response = await axios.get(`https://statsapi.mlb.com/api/v1/game/${game.gamePk}/linescore`)
         setGame(response.data)
         
     }
@@ -31,7 +31,7 @@ export default function Ticker() {
         scheduleElement = schedule.dates[0].games.map((game) => {
             let awayTeamScore = null;
             let homeTeamScore = null;
-          
+            let gamePk = game.gamePk
             if (game.teams.away.team.id) {
               awayTeamScore = (
                 <div className="flex flex-row items-center align-baseline m-3">
@@ -52,7 +52,7 @@ export default function Ticker() {
           
             return (
               <div>
-                <Link to="/game" onClick={() => handleGameClick(game.gamePk)}>
+                <Link to="/game" onClick={() => handleGameClick()}>
                   <div className="flex flex-row m-7 justify-around items-center align-baseline">
                     {awayTeamScore}  @ {homeTeamScore} 
                   </div>
