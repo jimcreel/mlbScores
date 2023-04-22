@@ -65,8 +65,8 @@ export default function GameCard(props) {
                           <p className="text-3xl font-bold">{homeScore}</p>
                       </div>
                     </div>
-                {} <div className = 'flex flex-col h-[75px]'>
-                    <p className ="text-center text-xl font-bold align-start"> FINAL </p>
+                 <div className = 'flex flex-col h-[75px] -mt-4'>
+                    <p className ="text-center text-xl font-bold "> FINAL </p>
                 {winningPitcher &&
                     <p className="text-left text-xs ml-5">W - {winningPitcher}</p>
                 }
