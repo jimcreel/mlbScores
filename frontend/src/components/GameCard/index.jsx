@@ -43,7 +43,6 @@ export default function GameCard(props) {
         
         if(tickerGame.liveData){
             tickerGame.liveData.decisions? winningPitcher = tickerGame.liveData.decisions.winner.fullName : ''
-            console.log(winningPitcher)
             tickerGame.liveData.decisions? losingPitcher = tickerGame.liveData.decisions.loser.fullName: ''
             
            

@@ -15,25 +15,15 @@ export default function Game(props){
     if(game.gameData){
         playerNames = game.gameData.players
     }
-    console.log(homePlayers)
-    console.log(awayPlayers)
-    console.log(playerNames)
+    
     let homeElement = <p> Loading... </p>;
     let awayElement = <p> Loading... </p>;
     let homePitcher = <p> Loading... </p>;
     let awayPitcher = <p> Loading... </p>;
 
+    console.log((homePlayers))
     if(game.liveData){
-        homeElement = Object.values(homePlayers).map((player) => {
-            if(player.position.code == 'P'){
-                homePitcher = playerNames[player.person.id].fullName
-            }
-            // return(
-            //     <div className="flex flex-row justify-around items-center align-center">
-            //         <p className="text-center text-xs">{playerNames[player.person.id].fullName}</p>
-            //     </div>
-            // )
-        })
+       
     }   
     return(
         <div>
