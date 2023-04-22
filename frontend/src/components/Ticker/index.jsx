@@ -19,9 +19,9 @@ export default function Ticker(props) {
 
     return (
     <div className="bg-white-800 flex flex-row overflow-x-auto max-h-30">
-        <div className="flex flex-row flex-wrap nowrap">
+        
         {scheduleElement}
-        </div>
+        
     </div>
 
     );
