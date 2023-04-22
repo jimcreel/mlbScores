@@ -65,16 +65,16 @@ export default function GameCard(props) {
                           <p className="text-3xl font-bold">{homeScore}</p>
                       </div>
                     </div>
-                {} <div>
-                    <p className ="text-center text-xl font-bold"> FINAL </p>
+                {} <div className = 'flex flex-col h-[75px]'>
+                    <p className ="text-center text-xl font-bold align-start"> FINAL </p>
                 {winningPitcher &&
-                    <p className="text-center text-xs">W - {winningPitcher}</p>
+                    <p className="text-left text-xs ml-5">W - {winningPitcher}</p>
                 }
                 {losingPitcher &&
-                    <p className="text-center text-xs">L - {losingPitcher}</p>
+                    <p className="text-left text-xs ml-5">L - {losingPitcher}</p>
                 }
                 {savePitcher && 
-                    <p className="text-center text-xs">S - {savePitcher}</p>
+                    <p className="text-left text-xs ml-5">S - {savePitcher}</p>
                 }
                 </div> 
             </div>
@@ -160,7 +160,7 @@ export default function GameCard(props) {
             
         
     return (
-        <div className="w-48 mr-4 flex-shrink-0">
+        <div className="w-48 m-4 flex-shrink-0">
             <Link to="/game" onClick={() => handleGameClick()}>
                 {cardElement}
             </Link>
