@@ -36,35 +36,48 @@ export default function GameCard(props) {
         let winningPitcher = '';
         let losingPitcher = '';
         let savePitcher = '';
+        let awayId = game.teams.away.team.id;
+        let homeId = game.teams.home.team.id;
+        let awayScore = game.teams.away.score;
+        let homeScore = game.teams.home.score;
         
         if(tickerGame.liveData){
             tickerGame.liveData.decisions? winningPitcher = tickerGame.liveData.decisions.winner.fullName : ''
-            console.log(winningPitcher)
             tickerGame.liveData.decisions? losingPitcher = tickerGame.liveData.decisions.loser.fullName: ''
             
            
         }
 
         cardElement = (
-            <div className="flex flex-row justify-around items-center align-center">
-                <div className="h-20"></div>
-                <img src={`/assets/${game.teams.away.team.id}.svg`} className="w-7" />
-                <p className="text-center text-xl">{game.teams.away.score}</p>
-                <p className="text-center text-xl">F</p>
-                <img src={`/assets/${game.teams.home.team.id}.svg`} className="w-7"/>
-                <p className="text-center text-xl">{game.teams.home.score}</p>
-                <div>
+                <div className="flex items-center justify-around bg-gray-100 rounded-lg p-4">
+                  <div className="flex items-center justify-around ">
+                    
+            
+                    <div className="flex items-center flex-col justify-center align-between">
+                      
+                      <div className="flex flex-row items-center justify-center mb-2 ">
+                          <img src={`/assets/${awayId}.svg`} className="w-[40px] h-[40px] mr-2" />
+                          <p className="text-3xl font-bold">{awayScore}</p>
+                      </div>
+                      <div className="flex flex-row items-center justify-center ">
+                          <img src={`/assets/${homeId}.svg`} className="w-[40px] h-[40px] mr-2" />
+                          <p className="text-3xl font-bold">{homeScore}</p>
+                      </div>
+                    </div>
+                 <div className = 'flex flex-col h-[75px] -mt-4'>
+                    <p className ="text-center text-xl font-bold "> FINAL </p>
                 {winningPitcher &&
-                    <p className="text-center text-xs">W - {winningPitcher}</p>
+                    <p className="text-left text-xs ml-5">W - {winningPitcher}</p>
                 }
                 {losingPitcher &&
-                    <p className="text-center text-xs">L - {losingPitcher}</p>
+                    <p className="text-left text-xs ml-5">L - {losingPitcher}</p>
                 }
                 {savePitcher && 
-                    <p className="text-center text-xs">S - {savePitcher}</p>
+                    <p className="text-left text-xs ml-5">S - {savePitcher}</p>
                 }
-                </div>
+                </div> 
             </div>
+        </div>
         )
         
     } else if (game.status.abstractGameState == 'Live') {
@@ -146,7 +159,7 @@ export default function GameCard(props) {
             
         
     return (
-        <div className="w-48 mr-4 flex-shrink-0">
+        <div className="w-48 m-4 flex-shrink-0">
             <Link to="/game" onClick={() => handleGameClick()}>
                 {cardElement}
             </Link>

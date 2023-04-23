@@ -21,6 +21,7 @@ export default function Game(props){
     let homePitcher = <p> Loading... </p>;
     let awayPitcher = <p> Loading... </p>;
 
+    console.log((homePlayers))
     if(game.liveData){
         homeElement = Object.values(homePlayers.battingOrder).map((player) => {
             let playerID = `ID${player}`
