@@ -33,7 +33,7 @@ export default function Game(props){
 
                         <tr>
                             
-                            <td><div className = {playerNameDiv}><p> {game.gameData.players[playerId].boxscoreName}</p> <p className='opacity-50'>{playerPositionString}</p></div></td>
+                            <td><div className = {playerNameDiv}>{game.gameData.players[playerId].boxscoreName} <span className='opacity-50'> {playerPositionString} </span></div></td>
                             <td> {homePlayers.players[playerId].stats.batting.atBats} </td>
                             <td> {homePlayers.players[playerId].stats.batting.runs} </td>
                             <td> {homePlayers.players[playerId].stats.batting.hits} </td>
