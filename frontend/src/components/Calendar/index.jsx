@@ -2,23 +2,27 @@ import {Link} from 'react-router-dom'
 import { useState, useEffect } from "react";
 import axios from 'axios'
 
-export default function Calendar ({ currentDate, setCurrentDate}) {
-    console.log(currentDate)
+export default function Calendar (props) {
+    const {setCurrentDate} = props
+    console.log('calendar')
     let dateArray = []
     for (let i = -4; i < 3; i++) {
-        let newDate = new Date(currentDate)
+        let newDate = new Date()
         newDate.setDate(newDate.getDate() + i)
         dateArray.push(newDate)
     }
+    function handleCalendarClick (date) {
+        setCurrentDate(date)
+    }
     let calendarDiv = <p> Loading... </p>;
-    if (currentDate != null) {
+
         calendarDiv = dateArray.map((date) => {
             return (
             <div>
-                <p onClick= {(setCurrentDate(date))}> {`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`} </p>
+                 <Link to='/' onClick={() => handleCalendarClick(date)}> {`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`} </Link> 
             </div>)
         })
-    }
+    
 
 
 
@@ -28,5 +32,5 @@ export default function Calendar ({ currentDate, setCurrentDate}) {
             {calendarDiv}
         </div>
     )
-    }
+}
 
