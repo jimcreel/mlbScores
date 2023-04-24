@@ -24,18 +24,64 @@ export default function Game(props){
     console.log((homePlayers))
     if(game.liveData){
         homeElement = Object.values(homePlayers.battingOrder).map((player) => {
-            let playerID = `ID${player}`
+            let playerId = `ID${player}`
             let playerGameStats = ''
             return(
-                <div>
-                    <p>{playerGameStats}</p>
-                </div>
+                
+
+                        <tr>
+                            <td> {game.gameData.players[playerId].boxscoreName} </td>
+                            <td> {homePlayers.players[playerId].stats.batting.atBats} </td>
+                            <td> {homePlayers.players[playerId].stats.batting.runs} </td>
+                            <td> {homePlayers.players[playerId].stats.batting.hits} </td>
+                            <td> {homePlayers.players[playerId].stats.batting.rbi} </td>
+
+
+                        </tr>
+                        
+
+                
+            )
+        })
+        awayElement = Object.values(awayPlayers.battingOrder).map((player) => {
+            let playerId = `ID${player}`
+            let playerGameStats = ''
+            return(
+                
+
+                        <tr>
+                            <td> {game.gameData.players[playerId].boxscoreName} </td>
+                            <td> {awayPlayers.players[playerId].stats.batting.atBats} </td>
+                            <td> {awayPlayers.players[playerId].stats.batting.runs} </td>
+                            <td> {awayPlayers.players[playerId].stats.batting.hits} </td>
+                            <td> {awayPlayers.players[playerId].stats.batting.rbi} </td>
+
+
+                        </tr>
+                        
+
+                
             )
         })
     }   
     return(
         <div>
-            {homeElement}
+            <table>
+                <th> Name </th>
+                <th> AB </th>
+                <th> R </th>
+                <th> H </th> 
+                <th> RBI </th> 
+                {homeElement}
+            </table>
+            <table>
+                <th> Name </th>
+                <th> AB </th>
+                <th> R </th>
+                <th> H </th> 
+                <th> RBI </th> 
+                {awayElement}
+            </table>
         </div>
         
     )
