@@ -4,28 +4,34 @@ import axios from 'axios'
 
 export default function Calendar (props) {
     const {setCurrentDate} = props
+    const [weekOffset, setWeekOffset] = useState(0)
+    const [weekArray, setWeekArray] = useState([])
     
-    let dateArray = []
-    let today = new Date()
-    for (let i = -3; i < 4; i++) {
-        let newDate = new Date()
-        newDate.setDate(newDate.getDate() + i)
-        dateArray.push(newDate)
-    }
+    useEffect(() => {
+      let dateArray = []
+      
+      for (let i = -3; i < 4; i++) {
+          let newDate = new Date()
+          newDate.setDate(newDate.getDate() + i + weekOffset)
+          newDate.setDate(newDate.getDate() + i)
+          dateArray.push(newDate)
+      }
+      console.log(dateArray)
+      setWeekArray(dateArray)
+    }, [weekOffset])
+
     function handleCalendarClick (date) {
         setCurrentDate(date)
     }
     function handleArrowClick (direction) {
-        let newDate = new Date()
         if (direction === 'left') {
-            newDate.setDate(newDate.getDate() - 7)
+            setWeekOffset(weekOffset - 7)
         } else {
-            newDate.setDate(newDate.getDate() + 7)
+            setWeekOffset(weekOffset + 7)
         }
-        setCurrentDate(newDate)
     }
     
-  const calendarDiv = dateArray.map((date) => {
+  const calendarDiv = weekArray.map((date) => {
     const dateStr = date.toLocaleString("default", {
       month: "short",
       day: "numeric",
