@@ -16,7 +16,7 @@ export default function App() {
     const [currentDate, setCurrentDate] = useState(new Date());
     async function getSchedule() {
         // const response = await axios.get(`https://statsapi.mlb.com/api/v1/schedule/?sportId=1`)
-        const response = await axios.get(`https://statsapi.mlb.com/api/v1/schedule/?sportId=1&team=113`)
+        const response = await axios.get(`https://statsapi.mlb.com/api/v1/schedule/?sportId=1&date=2023-04-23`)
         setSchedule(response.data)
     }
     
