@@ -6,6 +6,8 @@ import MLBStatsAPI from "mlb-stats-api";
 import Ticker from '../Ticker'
 import Calendar from '../Calendar'
 import Nav from '../Nav'
+import Home from '../Home'
+import CommentSection from '../CommentSection'
 
 
 
@@ -39,11 +41,11 @@ export default function App() {
             <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} />
             <Ticker schedule={schedule} setGame={setCurrentGame}/>
             <Routes>
-                <Route path="/" element={<Ticker schedule={schedule} setGame={setCurrentGame}/>} />
+                <Route path="/" element={<Home />} />
                 <Route path="/game" element={<GamePage game = {currentGame} />} />
 
-            </Routes>
-
+            </Routes>   
+            <CommentSection />
             </>
         )
     }

@@ -66,13 +66,13 @@ export default function Game(props){
             <table className='table-fixed'>
                 {hittingTableHead}
                 <tbody>
-                    {homeElement}
+                    {awayElement}
                 </tbody>
             </table>
             <table className='table-fixed'>
                 {hittingTableHead}
                 <tbody>
-                    {awayElement}
+                    {homeElement}
                 </tbody>
             </table>
         </div>

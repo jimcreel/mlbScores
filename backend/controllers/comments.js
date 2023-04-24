@@ -3,7 +3,6 @@ const router = express.Router();
 const jwt = require('jwt-simple');
 const db = require('../models');
 
-const db = require('../models');
 const config = require('../../jwt.config.js');
 
 const authMiddleware = (req, res, next) => {

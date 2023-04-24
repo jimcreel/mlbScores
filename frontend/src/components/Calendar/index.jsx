@@ -13,7 +13,6 @@ export default function Calendar (props) {
       for (let i = -3; i < 4; i++) {
           let newDate = new Date()
           newDate.setDate(newDate.getDate() + i + weekOffset)
-          newDate.setDate(newDate.getDate() + i)
           dateArray.push(newDate)
       }
       console.log(dateArray)

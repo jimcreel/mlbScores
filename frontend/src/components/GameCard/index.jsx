@@ -4,9 +4,20 @@ import axios from 'axios'
 
 export default function GameCard(props) {
     const [tickerGame, setTickerGame] = useState({});
+    const [isHovering, setIsHovering] = useState(false);
+
+
     const game = props.game;
     const setGame = props.setGame;
     
+    const handleMouseOver = () => {
+        setIsHovering(true);
+    }
+
+    const handleMouseOut = () => {
+        setIsHovering(false);
+    }
+
 
     useEffect(() => {
         getGameUpdate()
@@ -107,9 +118,9 @@ export default function GameCard(props) {
                 
             
 
-            console.log('here is the runners string', + runners)
+            const resultDescription = tickerGame?.liveData?.plays?.currentPlay?.result?.description;
             cardElement = (
-              <div className="flex items-center justify-around bg-gray-100 rounded-lg p-4">
+              <div className="flex items-center justify-around bg-gray-100 rounded-lg p-4" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
                 <div className="flex items-center justify-around ">
                   
           
@@ -156,12 +167,17 @@ export default function GameCard(props) {
         )
     }
     
-            
+const resultDescription = tickerGame?.liveData?.plays?.currentPlay?.result?.description;
         
     return (
         <div className="w-48 m-4 flex-shrink-0">
             <Link to="/game" onClick={() => handleGameClick()}>
                 {cardElement}
+                {isHovering && resultDescription && (
+                <div className="absolute top-0 left-0 p-4 bg-white rounded-lg shadow-md">
+                    <p>{resultDescription}</p>
+                </div>
+                )}
             </Link>
         </div>
 
