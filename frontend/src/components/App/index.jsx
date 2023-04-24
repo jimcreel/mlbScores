@@ -5,6 +5,7 @@ import axios from 'axios'
 import MLBStatsAPI from "mlb-stats-api";
 import Ticker from '../Ticker'
 import Calendar from '../Calendar'
+import Nav from '../Nav'
 
 
 
@@ -34,6 +35,7 @@ export default function App() {
         
         return (
             <>
+            <Nav />
             <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} />
             <Ticker schedule={schedule} setGame={setCurrentGame}/>
             <Routes>

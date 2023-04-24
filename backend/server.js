@@ -14,6 +14,7 @@ const db = require('./models');
 /* Require the routes in the controllers folder
 --------------------------------------------------------------- */
 const commentsCtrl = require('./controllers/comments')
+const usersCtrl = require('./controllers/users')
 
 
 
@@ -55,7 +56,7 @@ app.use(cors())
 // to handle all routes that begin with `localhost:3000/api/comments`
 app.use('/api/comments', commentsCtrl)
 
-
+app.use('/api/users', usersCtrl)
 
 
 // The "catch-all" route: Runs for any other URL that doesn't match the above routes

@@ -9,5 +9,6 @@ const mongodbUri = process.env.MONGODBURI;
 })().catch(err=>console.log(err));
 
 module.exports = {
-    Comment: require('./comments')
+    Comment: require('./comments'),
+    User: require('./user')
 }
