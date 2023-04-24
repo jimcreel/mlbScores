@@ -18,7 +18,7 @@ export default function App() {
         // const response = await axios.get(`https://statsapi.mlb.com/api/v1/schedule/?sportId=1`)
         const response = await axios.get(`https://statsapi.mlb.com/api/v1/schedule/?sportId=1&date=${dateString}`)
         setSchedule(response.data)
-        console.log('app')
+        
     }
     
     
@@ -37,7 +37,7 @@ export default function App() {
             <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} />
             <Ticker schedule={schedule} setGame={setCurrentGame}/>
             <Routes>
-                
+                <Route path="/" element={<Ticker schedule={schedule} setGame={setCurrentGame}/>} />
                 <Route path="/game" element={<GamePage game = {currentGame} />} />
 
             </Routes>
