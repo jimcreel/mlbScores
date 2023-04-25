@@ -46,7 +46,7 @@ export default function HittingBoxScore(props) {
 
     const hittingTableHead =  <thead> 
                                     <tr>
-                                        <th className='w-[175px]'> Name </th>
+                                        <th className='w-[175px] text-left'> Hitters </th>
                                         <th className='w-[25px] text-center'> AB </th>
                                         <th className='w-[25px] text-center'> R </th>
                                         <th className='w-[25px] text-center'> H </th> 

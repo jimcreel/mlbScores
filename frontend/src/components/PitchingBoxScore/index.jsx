@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function PitchingBoxScore (props) {
 const {setGameOrPlayer} = props;
-const {setPlayer} = props;
+const {setCurrentPlayer} = props;
 const {game} = props;
 const {playerList} = props;
 
@@ -20,7 +20,6 @@ function buildBoxScorePitching(playerList) {
         let playerId = `ID${player}`
         let playerIdLookup = player
         let playerPositions = Object.values(playerList.players[playerId].allPositions).map((position) => [position.abbreviation])
-        let playerPositionString = playerPositions.join('-')
         let playerNameDiv = playerList.players[playerId].gameStatus.isSubstitute ? 'flex flex-row justify-between pr-5 pl-3' : 'flex flex-row justify-between pr-5'
 
         return playerPositions.length ==1 && playerPositions[0] == 'P' ? (
@@ -54,7 +53,7 @@ if (playerList) {
 
 const pitchingTableHead = <thead>
     <tr>
-        <th className='w-[175px]'> Name </th>
+        <th className='w-[175px] text-left'> Pitchers </th>
         <th className='w-[25px] text-center'> IP </th>
         <th className='w-[25px] text-center'> H </th>
         <th className='w-[25px] text-center'> R </th>

@@ -45,15 +45,17 @@ export default function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 {gameOrPlayer=='game' && 
-                <Route path="/game" element={<GamePage game = {currentGame} setCurrentPlayer={setCurrentPlayer} setGameOrPlayer={setGameOrPlayer} />} />
+                <Route path="/game" element={<GamePage game = {currentGame} setCurrentPlayer={setCurrentPlayer} setGameOrPlayer={setGameOrPlayer} />}
+                 />
                 }
                 {gameOrPlayer=='player' &&
                 <Route path="/player" element={<PlayerPage player = {currentPlayer} />} />
                 }
-                
 
             </Routes>   
-            <CommentSection />
+            {gameOrPlayer=='game' &&
+            <CommentSection game={currentGame} />
+            }
             </>
         )
     }
