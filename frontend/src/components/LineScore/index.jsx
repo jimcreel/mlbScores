@@ -18,8 +18,8 @@ export default function LineScore(props) {
                         )
                     }
                     )}
-                    <th></th> 
-                    <th className='w-[25px] text-center ml-10'> R </th>
+                    <th> </th> 
+                    <th className='w-[25px] text-center'> R </th>
                     <th className='w-[25px] text-center'> H </th>
                     <th className='w-[25px] text-center'> E </th>
                 </tr>
@@ -35,9 +35,9 @@ export default function LineScore(props) {
                 }
                 )}
                 <th></th>
-                <td className='text-center'> {game.liveData.linescore.teams.away.runs} </td>
-                <td className='text-center'> {game.liveData.linescore.teams.away.hits} </td>
-                <td className='text-center'> {game.liveData.linescore.teams.away.errors} </td>
+                <td className='text-center font-bold'> {game.liveData.linescore.teams.away.runs} </td>
+                <td className='text-center font-bold'> {game.liveData.linescore.teams.away.hits} </td>
+                <td className='text-center font-bold'> {game.liveData.linescore.teams.away.errors} </td>
             </tr>
         )
         homeLineScore = (
@@ -50,9 +50,9 @@ export default function LineScore(props) {
                 }
                 )}
                 <th></th>
-                <td className='text-center'> {game.liveData.linescore.teams.home.runs} </td>
-                <td className='text-center'> {game.liveData.linescore.teams.home.hits} </td>
-                <td className='text-center'> {game.liveData.linescore.teams.home.errors} </td>
+                <td className='text-center font-bold'> {game.liveData.linescore.teams.home.runs} </td>
+                <td className='text-center font-bold'> {game.liveData.linescore.teams.home.hits} </td>
+                <td className='text-center font-bold'> {game.liveData.linescore.teams.home.errors} </td>
             </tr>
         )
 
