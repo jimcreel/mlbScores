@@ -1,9 +1,11 @@
 import {Link} from 'react-router-dom'
 import LineScore from '../LineScore';
 import HittingBoxScore from '../HittingBoxScore';
+import PitchingBoxScore from '../PitchingBoxScore';
 
-export default function Game(props){
-    
+export default function GamePage(props){
+    const {setGameOrPlayer} = props;
+    const {setCurrentPlayer} = props;
     const {game} = props;
     
 
@@ -38,11 +40,14 @@ export default function Game(props){
                                 </thead>
 
     return(
-        <div>
-            <LineScore game={game} />
-            <HittingBoxScore playerList={homePlayers} game={game} />
-            <HittingBoxScore playerList={awayPlayers} game={game} />
-            
+        <div className='flex flex-col'>
+            <div className = 'flex flex-row justify-center'><LineScore game={game} /></div>
+            <div className = 'flex flex-row mt-5 justify-center flex-wrap'>
+                <div className='m-5'><HittingBoxScore playerList={awayPlayers} game={game} setGameOrPlayer = {setGameOrPlayer} setCurrentPlayer={setCurrentPlayer}/><PitchingBoxScore playerList={awayPlayers} game={game} setGameOrPlayer = {setGameOrPlayer} setCurrentPlayer={setCurrentPlayer} /></div>
+                <div className='m-5'><HittingBoxScore playerList={homePlayers} game={game} setGameOrPlayer = {setGameOrPlayer} setCurrentPlayer={setCurrentPlayer}/>
+                <PitchingBoxScore playerList={homePlayers} game={game} setGameOrPlayer = {setGameOrPlayer} setCurrentPlayer={setCurrentPlayer}/></div>
+                
+            </div>
         </div>
         
     )

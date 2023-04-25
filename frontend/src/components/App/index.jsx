@@ -8,7 +8,7 @@ import Calendar from '../Calendar'
 import Nav from '../Nav'
 import Home from '../Home'
 import CommentSection from '../CommentSection'
-
+import PlayerPage from '../PlayerPage'
 
 
 
@@ -17,6 +17,8 @@ export default function App() {
     const [currentGame, setCurrentGame] = useState({});
     const [schedule, setSchedule] = useState([]);
     const [currentDate, setCurrentDate] = useState(new Date());
+    const [gameOrPlayer, setGameOrPlayer] = useState('game')
+    const [currentPlayer, setCurrentPlayer] = useState({})
     async function getSchedule(dateString) {
         // const response = await axios.get(`https://statsapi.mlb.com/api/v1/schedule/?sportId=1`)
         const response = await axios.get(`https://statsapi.mlb.com/api/v1/schedule/?sportId=1&date=${dateString}`)
@@ -39,10 +41,16 @@ export default function App() {
             <>
             <Nav />
             <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} />
-            <Ticker schedule={schedule} setGame={setCurrentGame}/>
+            <Ticker schedule={schedule} setGame={setCurrentGame} setPlayer={setCurrentPlayer} setGameOrPlayer={setGameOrPlayer}/>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/game" element={<GamePage game = {currentGame} />} />
+                {gameOrPlayer=='game' && 
+                <Route path="/game" element={<GamePage game = {currentGame} setCurrentPlayer={setCurrentPlayer} setGameOrPlayer={setGameOrPlayer} />} />
+                }
+                {gameOrPlayer=='player' &&
+                <Route path="/player" element={<PlayerPage player = {currentPlayer} />} />
+                }
+                
 
             </Routes>   
             <CommentSection />

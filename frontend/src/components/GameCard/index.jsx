@@ -5,6 +5,8 @@ import axios from 'axios'
 export default function GameCard(props) {
     const [tickerGame, setTickerGame] = useState({});
     const [isHovering, setIsHovering] = useState(false);
+    const {setGameOrPlayer} = props;
+    
 
 
     const game = props.game;
@@ -25,6 +27,7 @@ export default function GameCard(props) {
 
     function handleGameClick() {
         setGame(tickerGame);
+        setGameOrPlayer('game');
     }
 
     async function getGameUpdate() {
