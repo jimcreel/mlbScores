@@ -1,7 +1,10 @@
+import {Link} from 'react-router-dom'
+import LineScore from '../LineScore/linescore';
+
 export default function Game(props){
     
     const {game} = props;
-    console.log(game)
+    
 
     let homePlayers = []
     let awayPlayers = []
@@ -16,10 +19,11 @@ export default function Game(props){
         playerNames = game.gameData.players
     }
     
-    let homeElement = <p> Loading... </p>;
-    let awayElement = <p> Loading... </p>;
+    let homeBoxScore = <p> Loading... </p>;
+    let awayBoxScore = <p> Loading... </p>;
     let homePitcher = <p> Loading... </p>;
     let awayPitcher = <p> Loading... </p>;
+    
 
     function buildBoxscoreHitting (playerList) {
         let teamElement = Object.values(playerList.batters).map((player) => {
@@ -46,10 +50,10 @@ export default function Game(props){
 
 
 
-    console.log((homePlayers))
+
     if(game.liveData){
-        homeElement = buildBoxscoreHitting(homePlayers)
-        awayElement = buildBoxscoreHitting(awayPlayers)
+        homeBoxScore = buildBoxscoreHitting(homePlayers)
+        awayBoxScore = buildBoxscoreHitting(awayPlayers)
     }
     const hittingTableHead =  <thead> 
                                     <tr>
@@ -63,16 +67,17 @@ export default function Game(props){
 
     return(
         <div>
+            <LineScore game={game} />
             <table className='table-fixed'>
                 {hittingTableHead}
                 <tbody>
-                    {awayElement}
+                    {awayBoxScore}
                 </tbody>
             </table>
             <table className='table-fixed'>
                 {hittingTableHead}
                 <tbody>
-                    {homeElement}
+                    {homeBoxScore}
                 </tbody>
             </table>
         </div>
