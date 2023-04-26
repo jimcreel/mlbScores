@@ -43,7 +43,7 @@ router.get('/:id', (req, res) => {
 
 
 // POST /api/comments
-router.post('/:id', (req, res) => {
+router.post('/:id', authMiddleware, (req, res) => {
     const comment = {
         ...req.body,
         gameId: req.params.gameId,
@@ -60,34 +60,31 @@ router.post('/:id', (req, res) => {
 })
 
 // PUT /api/comments/:id
-router.put('/:id', (req, res) => {
-    db.Comment.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true }
-    )
-        .then(updatedComment => {
+router.put('/:id', authMiddleware, async (req, res) => {
+    const userComment = await db.Comment.findById(req.params.id)
+    if (userComment.userId === req.user.id) {
+        const newComment = await db.Comment.findByIdAndUpdate(
+            req.params.id,
+            req.body,   
+            { new: true }
+        )
             res.json(updatedComment);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ message: 'Server Error' });
-        });
-}
-);
+    } else {
+        res.status(401).json({ message: 'Invalid user or token' });
+    }
+});
 
 
 // DELETE /api/comments/:id
-router.delete('/:id', (req, res) => {
-    db.Comment.findByIdAndDelete(req.params.id)
-        .then(deletedComment => {
-            res.json(deletedComment);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ message: 'Server Error' });
-        });
-}
+router.delete('/:id', authMiddleware, async (req, res) => {
+    const userComment = await db.Comment.findById(req.params.id)
+    if (userComment.userId === req.user.id){
+        const deletedComment = await db.Comment.findByIdAndDelete(req.params.id)
+        res.send('You deleted comment ' + deletedComment._id);
+    }else {
+            res.status(401).json({ message: 'Invalid user or token' });
+        }
+    }
 );
 
 
