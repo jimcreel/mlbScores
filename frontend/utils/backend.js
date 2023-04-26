@@ -39,3 +39,4 @@ export async function getUserId()
     const decodedToken = jwt_decode(token)
     return decodedToken
 }
+

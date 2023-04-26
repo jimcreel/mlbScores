@@ -4,11 +4,12 @@ import Comment from '../Comment'
 import { getUserId } from '../../../utils/backend';
 
 export default function CommentSection (props) {
+
     const {game} = props;
     const [comments, setComments] = useState([]);
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [createFormData, setCreateFormData] = useState({
-        name: '',
+        name: localStorage.getItem('userName'),
         comment: ''
     })
 
@@ -19,7 +20,6 @@ export default function CommentSection (props) {
         })
     }, [game])
 
-    
 
     function handleInputChange(event) {
         setCreateFormData({
@@ -43,12 +43,12 @@ export default function CommentSection (props) {
         event.preventDefault();
         let userId = getUserId()
         setCreateFormData({
-            name: '',
+            name: localStorage.getItem('userName'),
             comment: '',
             userId: userId
         })
         setShowCreateForm(false)
-        createComment({...createFormData, gameId: game.gamePk})
+        createComment({...createFormData, gameId: game.gamePk, })
         .then(() => refreshComments())
     }
 
@@ -64,7 +64,7 @@ export default function CommentSection (props) {
     if (showCreateForm) {
         btnText = 'Cancel'
     }
-
+   
    
     
     return (
@@ -80,7 +80,7 @@ export default function CommentSection (props) {
                 showCreateForm && <form
                     onSubmit={handleSubmit}
                     className="bg-gray-100 rounded-lg p-4 my-4 border-gray-700 border-2 w-[80vw] mx-auto text-right">
-                    
+                    <input type='text' name='name' value={createFormData.name} onChange={handleInputChange} disabled/>
                     <textarea
                         name="comment"
                         className="p-2 my-2 h-[100px] w-full bg-gray-100"
