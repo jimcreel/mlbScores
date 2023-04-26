@@ -28,9 +28,10 @@ const authMiddleware = (req, res, next) => {
 // GET /api/comments/:id
 router.get('/:id', (req, res) => {
     console.log('backend: get all comments for a game')
+    console.log(req.params)
     db.Comment.find({gameId: req.params.id})
         .then(comments => {
-    
+            console.log(comments)
             res.json(comments);
         })
         .catch(err => {

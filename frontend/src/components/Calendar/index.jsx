@@ -48,9 +48,9 @@ export default function Calendar (props) {
             <div className="pt-1 border-l border-r">
               <span className="text-4xl font-bold">{date.getDate()}</span>
             </div>
-            <div className="pb-2 px-2 border-l border-r border-b rounded-b flex justify-between">
+            <div className="pb-2 px-2 border-l border-r border-b rounded-b flex justify-center">
               <span className="text-xs font-bold">{date.toLocaleString("default", { weekday: "short" })}</span>
-              <span className="text-xs font-bold">{date.getFullYear()}</span>
+              
             </div>
           </div>
         </Link>

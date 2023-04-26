@@ -53,9 +53,7 @@ export default function App() {
                 }
 
             </Routes>   
-            {gameOrPlayer=='game' && currentGame &&
-            <CommentSection game={currentGame} />
-            }
+            
             </>
         )
     }

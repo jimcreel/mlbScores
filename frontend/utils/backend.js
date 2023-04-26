@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 export async function getComments(gameId) {
-    console.log('frontend: checking the gameId comments route')
-    const {response} = await axios.get(`/api/comments/${gameId}`);
+    const response = await axios.get(`/api/comments/${gameId}`);
     return response;
 }
 

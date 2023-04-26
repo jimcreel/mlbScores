@@ -1,21 +1,26 @@
 import { useState, useEffect } from 'react'
-import {createComment, getComments} from '../../utils/backend';
+import {createComment, getComments} from '../../../utils/backend';
 
 
 export default function CommentSection (props) {
     const {game} = props;
     const [comments, setComments] = useState([]);
-
     useEffect(() => {
         getComments(game.gamePk)
         .then (apiResponse => {
-            setComments(apiResponse)
+            console.log(apiResponse.data)
+            setComments(apiResponse.data)
         })
     }, [])
+
     let commentElement = <p> Loading... </p>;
-    console.log(comments)
-    if (comments) {
-        commentElement = comments.map((comment) => <p> {comment.content} </p>)
+    if (comments.length > 0) {
+        commentElement = comments.map((comment) => 
+        <div>
+            <h2> {comment.name}</h2>
+            <h2> {comment.comment}</h2>
+        </div>
+        )
     }
 
    
