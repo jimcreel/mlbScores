@@ -56,7 +56,8 @@ router.post('/login', async (req, res) => {
         const token = jwt.encode(payload, config.jwtSecret)
         res.json({
             token: token,
-            email: foundUser.email
+            email: foundUser.email,
+            name: foundUser.name
         })
         // if the user was not found in the database OR their password was incorrect, send an error
     } else {

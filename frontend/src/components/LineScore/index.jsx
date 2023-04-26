@@ -1,9 +1,10 @@
 export default function LineScore(props) {
     const { game } = props;
 
-    let innings = game.liveData.linescore.innings.length > 9 ? game.liveData.linescore.innings.length : 9
+    let innings = game.liveData.linescore.innings.length >9 ? game.liveData.linescore.innings.length : 9
     let awayLineScore = ''
     let homeLineScore = ''
+    let lineScoreTotals = ''
     
     let inningsHTML = []
     for (let i = 1; i <= innings; i++) {
@@ -18,17 +19,39 @@ export default function LineScore(props) {
                 <tr>
                     <th className='w-[175px]'> Team </th>
                     {inningsHTML}
-                    <th key={'runs'} className='w-[25px] text-center'> R </th>
-                    <th key={'hits'} className='w-[25px] text-center'> H </th>
-                    <th key={'errors'} className='w-[25px] text-center'> E </th>
+                    
                 </tr>
             
+        )
+        lineScoreTotals = (
+            <table className='ml-5'>
+                <thead>
+                    <tr>
+                        <th key={'runs'} className='w-[25px] text-center'> R </th>
+                        <th key={'hits'} className='w-[25px] text-center'> H </th>
+                        <th key={'errors'} className='w-[25px] text-center'> E </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td className='text-center font-bold'> {game.liveData.linescore.teams.away.runs} </td>
+                        <td className='text-center font-bold'> {game.liveData.linescore.teams.away.hits} </td>
+                        <td className='text-center font-bold'> {game.liveData.linescore.teams.away.errors} </td>
+                    </tr>
+                    <tr>
+                        <td className='text-center font-bold'> {game.liveData.linescore.teams.home.runs} </td>
+                        <td className='text-center font-bold'> {game.liveData.linescore.teams.home.hits} </td>
+                        <td className='text-center font-bold'> {game.liveData.linescore.teams.home.errors} </td>
+                    </tr>
+                </tbody>
+                
+            </table>
         )
         awayLineScore = (
             <tr>
               <td> {game.gameData.teams.away.name} </td>
               {game.liveData.linescore.innings.map((inning, index) => {
-                if (inning.away.runs != undefined) {
+                if (inning?.away && inning.away.runs != undefined) {
                   return (
                     <td className='text-center'> {inning.away.runs} </td>
                   )
@@ -39,9 +62,7 @@ export default function LineScore(props) {
                 }
               })}
               <th></th>
-              <td className='text-center font-bold'> {game.liveData.linescore.teams.home.runs} </td>
-              <td className='text-center font-bold'> {game.liveData.linescore.teams.home.hits} </td>
-              <td className='text-center font-bold'> {game.liveData.linescore.teams.home.errors} </td>
+              
             </tr>
         )
         homeLineScore = (
@@ -59,15 +80,12 @@ export default function LineScore(props) {
                 }
               })}
               <th></th>
-              <td className='text-center font-bold'> {game.liveData.linescore.teams.home.runs} </td>
-              <td className='text-center font-bold'> {game.liveData.linescore.teams.home.hits} </td>
-              <td className='text-center font-bold'> {game.liveData.linescore.teams.home.errors} </td>
-            </tr>
+              </tr>
           )
 
     }                 
  return (
-    <div >
+    <div className = 'flex flex-row'>
         <table>
             <thead>
             {lineScoreHeader}
@@ -77,6 +95,7 @@ export default function LineScore(props) {
             {homeLineScore}
             </tbody>
         </table> 
+        {lineScoreTotals}
     </div>
  )
 

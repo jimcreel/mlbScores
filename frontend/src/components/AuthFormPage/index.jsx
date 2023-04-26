@@ -20,7 +20,8 @@ export default function AuthFormPage() {
         event.preventDefault()
         // check what the URL parameter is to determine what request to make
         if (formType === 'login') {
-            const { token } = await logIn(formData)
+            const { token, name } = await logIn(formData)
+            console.log(token, name)
             localStorage.setItem('userToken', token)
         } else {
             const { token } = await signUp(formData)
@@ -48,6 +49,8 @@ export default function AuthFormPage() {
                             type="email"
                             required
                             placeholder="Email address"
+                            value={formData.email}
+                            onChange={handleInputChange}
                         />
                     </div>
                     <div>
@@ -62,6 +65,8 @@ export default function AuthFormPage() {
                             minLength="6"
                             required
                             placeholder="Password"
+                            value={formData.password}
+                            onChange={handleInputChange}
                         />
                     </div>
                     <div>

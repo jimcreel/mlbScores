@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jwt-simple');
 const db = require('../models');
+const {ObjectId} = require('mongodb');
 
 const config = require('../../jwt.config.js');
 
@@ -43,10 +44,10 @@ router.get('/:id', (req, res) => {
 
 
 // POST /api/comments
-router.post('/:id', authMiddleware, (req, res) => {
+router.post('/', authMiddleware, (req, res) => {
+    console.log(req.body)
     const comment = {
         ...req.body,
-        gameId: req.params.gameId,
         name: req.user.name,
         userId: req.user.id
 
@@ -61,14 +62,16 @@ router.post('/:id', authMiddleware, (req, res) => {
 
 // PUT /api/comments/:id
 router.put('/:id', authMiddleware, async (req, res) => {
+    console.log('backend: update a comment', req.user.id)
     const userComment = await db.Comment.findById(req.params.id)
-    if (userComment.userId === req.user.id) {
+    console.log(userComment.userId)
+    if (userComment.userId == req.user.id) {
         const newComment = await db.Comment.findByIdAndUpdate(
             req.params.id,
             req.body,   
             { new: true }
         )
-            res.json(updatedComment);
+            res.json(newComment);
     } else {
         res.status(401).json({ message: 'Invalid user or token' });
     }
@@ -78,7 +81,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
 // DELETE /api/comments/:id
 router.delete('/:id', authMiddleware, async (req, res) => {
     const userComment = await db.Comment.findById(req.params.id)
-    if (userComment.userId === req.user.id){
+    if (userComment.userId == req.user.id){
         const deletedComment = await db.Comment.findByIdAndDelete(req.params.id)
         res.send('You deleted comment ' + deletedComment._id);
     }else {

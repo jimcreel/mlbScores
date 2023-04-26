@@ -15,7 +15,6 @@ export default function Calendar (props) {
           newDate.setDate(newDate.getDate() + i + weekOffset)
           dateArray.push(newDate)
       }
-      console.log(dateArray)
       setWeekArray(dateArray)
     }, [weekOffset])
 
