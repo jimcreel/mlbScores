@@ -11,7 +11,7 @@ export default function CommentSection (props) {
             console.log(apiResponse.data)
             setComments(apiResponse.data)
         })
-    }, [])
+    }, [game])
 
     let commentElement = <p> Loading... </p>;
     if (comments.length > 0) {

@@ -9,6 +9,8 @@ import Nav from '../Nav'
 import Home from '../Home'
 import CommentSection from '../CommentSection'
 import PlayerPage from '../PlayerPage'
+import AuthFormPage from '../AuthFormPage'
+
 
 
 
@@ -51,6 +53,8 @@ export default function App() {
                 {gameOrPlayer=='player' &&
                 <Route path="/player" element={<PlayerPage player = {currentPlayer} />} />
                 }
+                <Route path="/auth/:formType" element={<AuthFormPage />} />
+
 
             </Routes>   
             
