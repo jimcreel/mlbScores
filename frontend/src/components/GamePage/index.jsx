@@ -17,28 +17,6 @@ export default function GamePage(props){
         awayPlayers = game.liveData.boxscore.teams.away
     }
 
-    
-    
-    
-    
-
-    
-
-
-
-
-
-    
-    const hittingTableHead =  <thead> 
-                                    <tr>
-                                        <th className='w-[175px]'> Name </th>
-                                        <th className='w-[25px] text-center'> AB </th>
-                                        <th className='w-[25px] text-center'> R </th>
-                                        <th className='w-[25px] text-center'> H </th> 
-                                        <th className='w-[25px] text-center'> RBI </th> 
-                                    </tr>
-                                </thead>
-
     return(
         <div className='flex flex-col'>
             <div className = 'flex flex-row justify-center'><LineScore game={game} /></div>

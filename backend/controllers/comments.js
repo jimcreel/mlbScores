@@ -24,24 +24,13 @@ const authMiddleware = (req, res, next) => {
     }
 };
 
-// GET /api/comments
-router.get('/', (req, res) => {
-    db.Comment.find()
-        .then(comments => {
-            console.log(comments);
-            res.json(comments);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ message: 'Server Error' });
-        });
-}
-);
 
 // GET /api/comments/:id
 router.get('/:id', (req, res) => {
-    db.Comment.find({countryId: req.params.id})
+    console.log('backend: get all comments for a game')
+    db.Comment.find({gameId: req.params.id})
         .then(comments => {
+    
             res.json(comments);
         })
         .catch(err => {
@@ -56,7 +45,10 @@ router.get('/:id', (req, res) => {
 router.post('/:id', (req, res) => {
     const comment = {
         ...req.body,
-        countryId: req.params.id
+        gameId: req.params.gameId,
+        name: req.user.name,
+        userId: req.user.id
+
     }
     db.Comment.create(comment)
         .then(newComment => {
