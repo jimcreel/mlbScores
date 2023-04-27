@@ -46,7 +46,7 @@ export default function GamePage( props){
                     <div className='m-5'><PitchingBoxScore playerList={homePlayers} game={game} setGameOrPlayer = {setGameOrPlayer} setCurrentPlayer={setCurrentPlayer} /></div>
                 </div>
             </div>
-        {game.liveData &&
+        {game.liveData && localStorage.getItem('userToken') &&
             <CommentSection game={game}/>
         }
         </div> 

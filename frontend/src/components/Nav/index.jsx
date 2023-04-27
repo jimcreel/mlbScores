@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from 'react'
 
@@ -6,15 +6,18 @@ import { useState, useEffect } from 'react'
 
 
 
+
 export default function Nav (props) {
    const {loggedIn, setLoggedIn} = props
-
+    const navigate = useNavigate()
     function handleLogoutClick() {
         setLoggedIn(false)
+        navigate('/auth/login')
     }
     function handleLoginClick() {
         localStorage.getItem('userToken') ? setLoggedIn(true) : setLoggedIn(false)
     }
+    
     return (
         <nav className="bg-gray-800 shadow-lg">
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
