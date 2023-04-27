@@ -15,6 +15,7 @@ export async function logIn(user) {
 
 export async function createComment(comment) {
     const response = await axios.post(`/api/comments`, comment, authHeader);
+    console.log(response)
     return response;
 }
 
@@ -33,10 +34,15 @@ export async function getComments(gameId) {
     return response;
 }
 
-export async function getUserId()
+export function getUserId()
 {
     const token = localStorage.getItem('userToken')
     const decodedToken = jwt_decode(token)
     return decodedToken
+}
+
+export async function logOut() {
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userName');
 }
 

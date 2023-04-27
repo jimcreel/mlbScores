@@ -26,7 +26,7 @@ export default function HittingBoxScore(props) {
                 '') :
             (  
                 <tr key={playerId}>
-                    <td><Link to='/player' onClick={() => handlePlayerClick(playerIdLookup)}>
+                    <td><Link to={'/player/'+ playerIdLookup} onClick={() => handlePlayerClick(playerIdLookup)}>
                     <div className = {playerNameDiv} >{game.gameData.players[playerId].boxscoreName} <span className='opacity-50'> {playerPositionString} </span></div></Link></td>
                     <td> {playerList.players[playerId].stats.batting.atBats} </td>
                     <td> {playerList.players[playerId].stats.batting.runs} </td>

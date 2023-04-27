@@ -10,7 +10,9 @@ export default function CommentSection (props) {
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [createFormData, setCreateFormData] = useState({
         name: localStorage.getItem('userName'),
-        comment: ''
+        comment: '',
+        userId: getUserId().id,
+        gameId: game.gamePk
     })
 
     useEffect(() => {
@@ -42,13 +44,17 @@ export default function CommentSection (props) {
     function handleSubmit(event){
         event.preventDefault();
         let userId = getUserId()
-        setCreateFormData({
-            name: '',
-            comment: ''
-        })
+        
         setShowCreateForm(!showCreateForm)
-        createComment({...createFormData, gameId: game.gamePk, userId: userId, name: userName})
+        console.log(createFormData)
+        createComment(createFormData)
         .then(() => refreshComments())
+        setCreateFormData({
+            name: localStorage.getItem('userName'),
+            comment: '',
+            userId: userId.id,
+            gameId: game.gamePk
+        })
     }
 
     let commentElements = [<p key='0'> No comments yet. Be the first to comment! </p>]
@@ -84,7 +90,6 @@ export default function CommentSection (props) {
                         name='name' 
                         value={createFormData.name} 
                         onChange={handleInputChange} 
-                        readOnly={true} 
                         placeholder = {createFormData.name}
                     />
                     <textarea

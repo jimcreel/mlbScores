@@ -24,7 +24,7 @@ function buildBoxScorePitching(playerList) {
 
         return playerPositions.length ==1 && playerPositions[0] == 'P' ? (
         <tr key={playerId}>
-            <td><Link to='/player' onClick={() => handlePlayerClick(playerIdLookup)}>
+            <td><Link to={'/player/'+ playerIdLookup} onClick={() => handlePlayerClick(playerIdLookup)}>
                 <div className = {playerNameDiv} >{game.gameData.players[playerId].boxscoreName}
                 <span className='opacity-50'> 
                 {playerList.players[playerId].stats.pitching.wins == '1' ? `W, ${playerList.players[playerId].seasonStats.pitching.wins}` : null}

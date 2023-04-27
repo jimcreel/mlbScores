@@ -10,6 +10,7 @@ import Home from '../Home'
 import CommentSection from '../CommentSection'
 import PlayerPage from '../PlayerPage'
 import AuthFormPage from '../AuthFormPage'
+import {getSchedule} from '../../../utils/api'
 
 
 
@@ -21,39 +22,37 @@ export default function App() {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [gameOrPlayer, setGameOrPlayer] = useState('game')
     const [currentPlayer, setCurrentPlayer] = useState({})
-    async function getSchedule(dateString) {
-        // const response = await axios.get(`https://statsapi.mlb.com/api/v1/schedule/?sportId=1`)
-        const response = await axios.get(`https://statsapi.mlb.com/api/v1/schedule/?sportId=1&date=${dateString}`)
-        setSchedule(response.data)
-        
-    }
+    const [loggedIn, setLoggedIn] = useState(localStorage.getItem('userToken') ? true : false)  
     
     
     useEffect(() => {
         
         let dateString = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`
-        getSchedule(dateString)
+        getSchedule(dateString).then((apiResponse) => {
+            
+            setSchedule(apiResponse.data)
+        })
         
-        }, [currentDate])
+        }, [currentDate, loggedIn])
 
         
     
         
         return (
             <>
-            <Nav />
+            <Nav loggedIn={loggedIn} setLoggedIn = {setLoggedIn} />
             <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} />
             <Ticker schedule={schedule} setGame={setCurrentGame} setPlayer={setCurrentPlayer} setGameOrPlayer={setGameOrPlayer}/>
             <Routes>
                 <Route path="/" element={<Home />} />
                 {gameOrPlayer=='game' && 
-                <Route path="/game" element={<GamePage game = {currentGame} setCurrentPlayer={setCurrentPlayer} setGameOrPlayer={setGameOrPlayer} />}
+                <Route path="/game/:gameId" element={<GamePage game = {currentGame} setGame = {setCurrentGame} setCurrentPlayer={setCurrentPlayer} setGameOrPlayer={setGameOrPlayer} />}
                  />
                 }
                 {gameOrPlayer=='player' &&
-                <Route path="/player" element={<PlayerPage player = {currentPlayer} />} />
+                <Route path="/player/:playerId" element={<PlayerPage player = {currentPlayer} />} />
                 }
-                <Route path="/auth/:formType" element={<AuthFormPage />} />
+                <Route path="/auth/:formType" element={<AuthFormPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
 
 
             </Routes>   

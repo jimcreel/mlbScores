@@ -11,6 +11,7 @@ const cors = require('cors');
 const db = require('./models');
 
 
+
 /* Require the routes in the controllers folder
 --------------------------------------------------------------- */
 const commentsCtrl = require('./controllers/comments')

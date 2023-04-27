@@ -1,12 +1,14 @@
 import {useState} from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { signUp, logIn } from "../../../utils/backend"
+import { logOut } from "../../../utils/backend"
 
-export default function AuthFormPage() {
+export default function AuthFormPage(props) {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
+    const {loggedIn, setLoggedIn} = props
 
     const navigate = useNavigate();
 
@@ -20,22 +22,24 @@ export default function AuthFormPage() {
         event.preventDefault()
         // check what the URL parameter is to determine what request to make
         if (formType === 'login') {
-            const { token, name } = await logIn(formData)
-            console.log(token, name)
+            const { token, name } = await logIn(formData)            
             localStorage.setItem('userToken', token)
             localStorage.setItem('userName', name)
         } else {
             const { token, name } = await signUp(formData)
+            
             localStorage.setItem('userToken', token)
             localStorage.setItem('userName', name)
 
         }
+        setLoggedIn(true)
         // redirect to the home page after signing/logging in
         navigate('/')
     }
     const { formType } = useParams()
     let actionText
         formType === 'login' ? actionText = 'Log In' : actionText = 'Sign Up'
+        formType === 'logout' ? logOut() : null
     return (
         <div className="flex items-center justify-center h-[90vh]">
             <div className="bg-gray-800 rounded-lg shadow-xl p-8 w-full max-w-md">

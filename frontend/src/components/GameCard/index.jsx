@@ -174,7 +174,7 @@ const resultDescription = tickerGame?.liveData?.plays?.currentPlay?.result?.desc
         
     return (
         <div className="w-48 m-4 flex-shrink-0">
-            <Link to="/game" onClick={() => handleGameClick()}>
+            <Link to={"/game/" + game.gamePk} onClick={() => handleGameClick()}>
                 {cardElement}
                 {isHovering && resultDescription && (
                 <div className="absolute top-0 left-0 p-4 bg-white rounded-lg shadow-md">

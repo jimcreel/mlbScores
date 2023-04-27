@@ -3,13 +3,20 @@ import LineScore from '../LineScore';
 import HittingBoxScore from '../HittingBoxScore';
 import PitchingBoxScore from '../PitchingBoxScore';
 import CommentSection from '../CommentSection'
+import {getGame} from '../../../utils/api'
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import cors from 'cors';
 
-export default function GamePage(props){
+
+
+
+export default function GamePage( props){
+    const {game} = props;
     const {setGameOrPlayer} = props;
     const {setCurrentPlayer} = props;
-    const {gameOrPlayer} = props;
-    const {game} = props;
-    
+
+
 
     let homePlayers = []
     let awayPlayers = []
