@@ -4,7 +4,7 @@ import Comment from '../Comment'
 import { getUserId } from '../../../utils/backend';
 
 export default function CommentSection (props) {
-
+    const userName = localStorage.getItem('userName')
     const {game} = props;
     const [comments, setComments] = useState([]);
     const [showCreateForm, setShowCreateForm] = useState(false);
@@ -43,12 +43,11 @@ export default function CommentSection (props) {
         event.preventDefault();
         let userId = getUserId()
         setCreateFormData({
-            name: localStorage.getItem('userName'),
-            comment: '',
-            userId: userId
+            name: '',
+            comment: ''
         })
-        setShowCreateForm(false)
-        createComment({...createFormData, gameId: game.gamePk, })
+        setShowCreateForm(!showCreateForm)
+        createComment({...createFormData, gameId: game.gamePk, userId: userId, name: userName})
         .then(() => refreshComments())
     }
 
@@ -80,7 +79,14 @@ export default function CommentSection (props) {
                 showCreateForm && <form
                     onSubmit={handleSubmit}
                     className="bg-gray-100 rounded-lg p-4 my-4 border-gray-700 border-2 w-[80vw] mx-auto text-right">
-                    <input type='text' name='name' value={createFormData.name} onChange={handleInputChange} disabled/>
+                    <input 
+                        type='text' 
+                        name='name' 
+                        value={createFormData.name} 
+                        onChange={handleInputChange} 
+                        readOnly={true} 
+                        placeholder = {createFormData.name}
+                    />
                     <textarea
                         name="comment"
                         className="p-2 my-2 h-[100px] w-full bg-gray-100"
