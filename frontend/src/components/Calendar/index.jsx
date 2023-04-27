@@ -42,7 +42,7 @@ export default function Calendar (props) {
           to="/"
           onClick={() => handleCalendarClick(date)}
         >
-          <div className="block rounded-t overflow-hidden bg-white text-center w-24">
+          <div className="block rounded-t overflow-hidden bg-white text-center w-24 hover:shadow-lg">
             <div className="bg-red text-white bg-black py-1">{date.toLocaleString("default", { month: "short" })}</div>
             <div className="pt-1 border-l border-r">
               <span className="text-4xl font-bold">{date.getDate()}</span>
@@ -57,16 +57,23 @@ export default function Calendar (props) {
     );
   });
     
+  const leftArrow = `<`
+  const rightArrow = `>`
 
 
 
 
-    return (
-        <div className="bg-white-800 flex flex-row overflow-x-auto max-h-30">
-            <div onClick={() => handleArrowClick('left')}> left arrow </div> 
-            {calendarDiv}
-            <div onClick={() => handleArrowClick('right')}> right arrow </div>
-        </div>
-    )
+  return (
+    <div className="bg-white-800 flex flex-row overflow-x-auto max-h-30 justify-center align-center" style={{ alignItems: 'center' }}>
+      <div onClick={() => handleArrowClick('left')} className="flex flex-col align-center text-center rounded border w-[50px] cursor-pointer hover:shadow-lg">
+        <p>{leftArrow}</p>
+      </div>
+      {calendarDiv}
+      <div onClick={() => handleArrowClick('left')} className="flex flex-col align-center text-center rounded border w-[50px] cursor-pointer hover:shadow-lg">
+        <p>{rightArrow}</p>
+      </div>
+    </div>
+  )
+  
 }
 

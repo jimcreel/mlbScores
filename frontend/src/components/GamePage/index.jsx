@@ -3,10 +3,8 @@ import LineScore from '../LineScore';
 import HittingBoxScore from '../HittingBoxScore';
 import PitchingBoxScore from '../PitchingBoxScore';
 import CommentSection from '../CommentSection'
-import {getGame} from '../../../utils/api'
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import cors from 'cors';
+import {useEffect } from 'react'
+import {useParams} from 'react-router-dom'
 
 
 
@@ -15,6 +13,15 @@ export default function GamePage( props){
     const {game} = props;
     const {setGameOrPlayer} = props;
     const {setCurrentPlayer} = props;
+    let gameId = useParams
+    useEffect(() => {
+        console.log('useEffect')
+        if (!game.gamePk){
+            getGame(gameId).then((apiResponse) => {
+                setGame(apiResponse.data)
+            })
+        }
+    }, [gameId, game.gamePk])
 
 
 
