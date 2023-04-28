@@ -20,31 +20,34 @@ const [standingsNL, setStandingsNL] = useState([])
     function buildStandings (league) {
           let standingsElement = league.records.map((division, index) => {
                 return (
-                    <div key={index}>
-                        <h2>{divisionNames[index]}</h2>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Team</th>
-                                    <th>Wins</th>
-                                    <th>Losses</th>
-                                    <th>Win %</th>
-                                </tr>
+                    <div className="my-4 mx-4" key={index}>
+                        <h2 className="text-lg font-semibold text-center">{divisionNames[index]}</h2>
+                        <table className="w-full mt-2 bg-white rounded-lg overflow-hidden">
+                            <thead className="text-left">
+                            <tr className="bg-gray-100">
+                                <th className="py-2 px-3">Team</th>
+                                <th className="py-2 px-3">Wins</th>
+                                <th className="py-2 px-3">Losses</th>
+                                <th className="py-2 px-3">GB</th>
+                                <th className="py-2 px-3">Win %</th>
+                            </tr>
                             </thead>
-                            <tbody>
-                                {division.teamRecords.map((teamRecord) => {
-                                    return (
-                                        <tr key={teamRecord.team.id}>
-                                            <td>{teamRecord.team.name}</td>
-                                            <td>{teamRecord.wins}</td>
-                                            <td>{teamRecord.losses}</td>
-                                            <td>{teamRecord.winPercentage}</td>
-                                        </tr>
-                                    )
-                                })}
+                            <tbody className="text-gray-700">
+                            {division.teamRecords.map((teamRecord) => {
+                                return (
+                                <tr key={teamRecord.team.id} className="border-t hover:bg-gray-100">
+                                    <td className="py-2 px-3">{teamRecord.team.name}</td>
+                                    <td className="py-2 px-3">{teamRecord.wins}</td>
+                                    <td className="py-2 px-3">{teamRecord.losses}</td>
+                                    <td className="py-2 px-3">{teamRecord.divisionGamesBack}</td>
+                                    <td className="py-2 px-3">{teamRecord.winningPercentage}</td>
+                                </tr>
+                                );
+                            })}
                             </tbody>
                         </table>
                     </div>
+
                 )
             }
     
@@ -69,14 +72,16 @@ const [standingsNL, setStandingsNL] = useState([])
 
 
     return (
-        <div className="flex flex-row">
-            
-            <div>
-            <h1> American League </h1>
-            {standingsALElements}
+        <div className="flex flex-col justify-around">
+            <h1 className='text-center font-bold'> American League </h1>
+            <div className='flex flex-row justify-around
+            flex-wrap'>
+                
+                {standingsALElements}
             </div>
-            <div>
-            <h1> National League </h1>
+            <h1 className='text-center font-bold'> National League </h1>
+            <div className='flex flex-row justify-around flex-wrap'>
+            
             {standingsNLElements}
             </div>
         </div>

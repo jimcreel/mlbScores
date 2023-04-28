@@ -16,3 +16,4 @@ export async function getStandings(leagueId) {
     const response = await axios.get(`https://statsapi.mlb.com/api/v1/standings?leagueId=${leagueId}`)
     return response;
 }
+

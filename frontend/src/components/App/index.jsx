@@ -18,23 +18,13 @@ import Standings from '../Standings'
 
 export default function App() {
     
-    const [currentGame, setCurrentGame] = useState({});
-    const [schedule, setSchedule] = useState([]);
-    const [currentDate, setCurrentDate] = useState(new Date());
+   
     
-    const [currentPlayer, setCurrentPlayer] = useState({})
+    
     const [loggedIn, setLoggedIn] = useState(localStorage.getItem('userToken') ? true : false)  
     
     
-    useEffect(() => {
-        
-        let dateString = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`
-        getSchedule(dateString).then((apiResponse) => {
-            
-            setSchedule(apiResponse.data)
-        })
-        
-        }, [currentDate, loggedIn])
+   
 
         
     
@@ -42,12 +32,11 @@ export default function App() {
         return (
             <>
             <Nav loggedIn={loggedIn} setLoggedIn = {setLoggedIn} />
-            <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} />
-            <Ticker schedule={schedule} setGame={setCurrentGame} setPlayer={setCurrentPlayer} />
+            <Calendar />
             <Routes>
                 <Route path="/" element={<Home />} />
                 
-                <Route path="/game/:gameId" element={<GamePage game = {currentGame} setGame = {setCurrentGame} setCurrentPlayer={setCurrentPlayer}  />}
+                <Route path="/game/:gameId" element={<GamePage   />}
                  />
                 
                 

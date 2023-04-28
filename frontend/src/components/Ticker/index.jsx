@@ -1,19 +1,26 @@
 
 import GameCard from "../GameCard";
+import {useContext, useEffect} from "react";
+import {ScheduleContext} from "../Calendar";
+import {DateContext} from "../Calendar";
 
 
 export default function Ticker(props) {
-    const schedule = props.schedule;
-    const setGame = props.setGame;
-    const setPlayer = props.setPlayer;
-    const setGameOrPlayer = props.setGameOrPlayer;
+    const schedule = useContext(ScheduleContext);
+    const {currentDate} = useContext(DateContext)
+    const {setGame} = props
+
+    useEffect(() => {
+        console.log('useEffect')
+
+    }, [schedule])
     
-
-    let scheduleElement = <p> Loading... </p>;
-
+    let scheduleElement = <div> loading...</div>
+   
     if(schedule.dates) {
-        scheduleElement = schedule.dates[0].games.map((gameCard) => <GameCard key={gameCard.gamePk} game={gameCard} setGame={setGame} setPlayer={setPlayer} setGameOrPlayer={setGameOrPlayer}/>)
+        scheduleElement = schedule.dates[0].games.map((gameCard) => <GameCard key={gameCard.gamePk} game={gameCard} setGame={setGame}/>)
     }
+    
 
 
 
