@@ -6,6 +6,7 @@ import PitchingBoxScore from '../PitchingBoxScore';
 import CommentSection from '../CommentSection'
 import {useEffect } from 'react'
 import {useParams} from 'react-router-dom'
+import {getGame} from '../../../utils/api'
 
 export const GameContext = React.createContext({})
 
@@ -13,10 +14,10 @@ export const GameContext = React.createContext({})
 export default function GamePage( props){
     
     const {game} = props;
-    
+    const {setGame} = props;
     const {setGameOrPlayer} = props;
     const {setCurrentPlayer} = props;
-    let gameId = useParams
+    let gameId = useParams().gameId
     useEffect(() => {
         console.log('useEffect')
         if (!game.gamePk){

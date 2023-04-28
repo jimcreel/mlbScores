@@ -8,7 +8,7 @@ export async function getSchedule(dateString) {
 
 export async function getGame(gameId) {
     
-    const response = await axios.get(`https://statsapi.mlb.com/api/v1/game/${gameId}/feed/live`)
+    const response = await axios.get(`https://statsapi.mlb.com/api/v1.1/game/${gameId}/feed/live`)
     return response;
 }
 
