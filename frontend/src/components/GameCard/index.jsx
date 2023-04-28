@@ -1,16 +1,17 @@
 import {Link} from 'react-router-dom'
 import { useState, useEffect } from "react";
-import axios from 'axios'
+import axios from 'axios' 
+import {getGame} from '../../../utils/api'
 
 export default function GameCard(props) {
-    const [tickerGame, setTickerGame] = useState({});
+    const game = props.game;
+    const [tickerGame, setTickerGame] = useState({game});
     const [isHovering, setIsHovering] = useState(false);
     
-    
 
-
-    const game = props.game;
+   
     const setGame = props.setGame;
+    
     
     const handleMouseOver = () => {
         setIsHovering(true);
@@ -20,7 +21,11 @@ export default function GameCard(props) {
         setIsHovering(false);
     }
 
-
+    useEffect (() => {
+        getGame(game.gamePk).then(apiResponse => {
+            setTickerGame(apiResponse.data)
+            })
+            }, [])
   
 
     
