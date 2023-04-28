@@ -5,7 +5,7 @@ import axios from 'axios'
 export default function GameCard(props) {
     const [tickerGame, setTickerGame] = useState({});
     const [isHovering, setIsHovering] = useState(false);
-    const {setGameOrPlayer} = props;
+    
     
 
 
@@ -21,28 +21,10 @@ export default function GameCard(props) {
     }
 
 
-    useEffect(() => {
-        getGameUpdate()
-    }, [])
+  
 
-    function handleGameClick() {
-        setGame(tickerGame);
-        setGameOrPlayer('game');
-    }
+    
 
-    async function getGameUpdate() {
-        
-            const response = await axios.get(`https://statsapi.mlb.com/api/v1.1/game/${game.gamePk}/feed/live`)
-            const data = response.data
-            setTickerGame(data)
-        
-    }
-
-    async function getPlayerUpdate() {
-        const response = await axios.get(`https://statsapi.mlb.com/api/v1/people/${game.gamePk}/stats`)
-        const data = response.data
-        setTickerGame(data)
-    }
 
     let cardElement = <p> Loading... </p>;
 
@@ -174,7 +156,7 @@ const resultDescription = tickerGame?.liveData?.plays?.currentPlay?.result?.desc
         
     return (
         <div className="w-48 m-4 flex-shrink-0">
-            <Link to={"/game/" + game.gamePk} onClick={() => handleGameClick()}>
+            <Link to={"/game/" + game.gamePk} >
                 {cardElement}
                 {isHovering && resultDescription && (
                 <div className="absolute top-0 left-0 p-4 bg-white rounded-lg shadow-md">

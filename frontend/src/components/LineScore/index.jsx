@@ -1,7 +1,7 @@
 import {useContext, useEffect} from 'react'
 import {GameContext} from '../GamePage'
 
-export default function LineScore(props) {
+export default function LineScore() {
     
     const game  = useContext(GameContext)
     console.log(game)
@@ -42,14 +42,14 @@ export default function LineScore(props) {
               </thead>
               <tbody>
                   <tr>
-                      <td className='text-center font-bold'> {game.liveData.linescore.teams.away.runs} </td>
-                      <td className='text-center font-bold'> {game.liveData.linescore.teams.away.hits} </td>
-                      <td className='text-center font-bold'> {game.liveData.linescore.teams.away.errors} </td>
+                      <td key={'homeRuns'} className='text-center font-bold'> {game.liveData.linescore.teams.away.runs} </td>
+                      <td key={'homeHits'} className='text-center font-bold'> {game.liveData.linescore.teams.away.hits} </td>
+                      <td key={'homeErrors'} className='text-center font-bold'> {game.liveData.linescore.teams.away.errors} </td>
                   </tr>
                   <tr>
-                      <td className='text-center font-bold'> {game.liveData.linescore.teams.home.runs} </td>
-                      <td className='text-center font-bold'> {game.liveData.linescore.teams.home.hits} </td>
-                      <td className='text-center font-bold'> {game.liveData.linescore.teams.home.errors} </td>
+                      <td key={'awayRuns'} className='text-center font-bold'> {game.liveData.linescore.teams.home.runs} </td>
+                      <td key={'awayHits'} className='text-center font-bold'> {game.liveData.linescore.teams.home.hits} </td>
+                      <td key={'awayErrors'} className='text-center font-bold'> {game.liveData.linescore.teams.home.errors} </td>
                   </tr>
               </tbody>
               

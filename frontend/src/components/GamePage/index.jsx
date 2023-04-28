@@ -4,7 +4,7 @@ import LineScore from '../LineScore';
 import HittingBoxScore from '../HittingBoxScore';
 import PitchingBoxScore from '../PitchingBoxScore';
 import CommentSection from '../CommentSection'
-import {useEffect } from 'react'
+import {useEffect, useState } from 'react'
 import {useParams} from 'react-router-dom'
 import {getGame} from '../../../utils/api'
 
@@ -13,11 +13,11 @@ export const GameContext = React.createContext({})
 
 export default function GamePage( props){
     
-    const {game} = props;
-    const {setGame} = props;
+
     
     const {setCurrentPlayer} = props;
     let gameId = useParams().gameId
+    const [game, setGame] = useState({})
     useEffect(() => {
         console.log('useEffect')
         if (!game.gamePk){
@@ -55,12 +55,12 @@ export default function GamePage( props){
                     <div className='flex flex-col'>
                         <div className = 'flex flex-row justify-center'> <LineScore  /></div>
                         <div className = 'flex flex-row mt-5 justify-center flex-wrap'>
-                            <div className='m-5'><HittingBoxScore playerList={awayPlayers}   setCurrentPlayer={setCurrentPlayer}/></div>
-                            <div className='m-5'><HittingBoxScore playerList={homePlayers}  setCurrentPlayer={setCurrentPlayer}/></div>
+                            <div className='m-5'><HittingBoxScore playerList={awayPlayers}   /></div>
+                            <div className='m-5'><HittingBoxScore playerList={homePlayers}  /></div>
                         </div>
                         <div className = 'flex flex-row mt-5 justify-center flex-wrap'>
-                            <div className='m-5'><PitchingBoxScore playerList={awayPlayers}   setCurrentPlayer={setCurrentPlayer} /></div>
-                            <div className='m-5'><PitchingBoxScore playerList={homePlayers}   setCurrentPlayer={setCurrentPlayer} /></div>
+                            <div className='m-5'><PitchingBoxScore playerList={awayPlayers}    /></div>
+                            <div className='m-5'><PitchingBoxScore playerList={homePlayers}    /></div>
                         </div>
                     </div>
                 {game.liveData && localStorage.getItem('userToken') &&
