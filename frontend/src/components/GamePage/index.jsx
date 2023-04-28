@@ -16,16 +16,17 @@ export default function GamePage( props){
 
     
     const {setCurrentPlayer} = props;
-    let gameId = useParams().gameId
+    const currentGameId = useParams()
+    const [gameId, setGameId] = useState(currentGameId.gameId)
+    console.log(currentGameId)
     const [game, setGame] = useState({})
+   
     useEffect(() => {
-        console.log('useEffect')
-        if (!game.gamePk){
-            getGame(gameId).then((apiResponse) => {
-                setGame(apiResponse.data)
-            })
-        }
-    }, [gameId, game.gamePk])
+        getGame(currentGameId.gameId).then(apiResponse => {
+            setGame(apiResponse.data)
+        })
+    }, [currentGameId.gameId])
+    
 
 
 
