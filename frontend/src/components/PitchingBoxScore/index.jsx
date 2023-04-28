@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { GameContext } from '../GamePage';
 
 export default function PitchingBoxScore (props) {
 const {setGameOrPlayer} = props;
 const {setCurrentPlayer} = props;
-const {game} = props;
+const game = useContext(GameContext)
 const {playerList} = props;
 
 function handlePlayerClick (playerId) {
@@ -47,7 +49,7 @@ function buildBoxScorePitching(playerList) {
     })
 }
 
-if (playerList) {
+if (playerList && game) {
     buildBoxScorePitching(playerList)
 }
 

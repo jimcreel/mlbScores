@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import {createComment, getComments} from '../../../utils/backend';
 import Comment from '../Comment'
 import { getUserId } from '../../../utils/backend';
+import { GameContext } from '../GamePage';
 
 export default function CommentSection (props) {
     const userName = localStorage.getItem('userName')
-    const {game} = props;
+    const game = useContext(GameContext)
     const [comments, setComments] = useState([]);
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [createFormData, setCreateFormData] = useState({
@@ -14,10 +15,12 @@ export default function CommentSection (props) {
     })
 
     useEffect(() => {
-        getComments(game.gamePk)
-        .then (apiResponse => {
-            setComments(apiResponse.data)
-        })
+        if (game){
+            getComments(game.gamePk)
+            .then (apiResponse => {
+                setComments(apiResponse.data)
+            })
+        }
     }, [game])
 
 

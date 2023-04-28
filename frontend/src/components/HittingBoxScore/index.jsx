@@ -1,7 +1,10 @@
 import {Link   } from 'react-router-dom'
+import {useContext} from 'react'
+import {GameContext} from '../GamePage'
+
 export default function HittingBoxScore(props) {
     const {playerList} = props;
-    const {game} = props;
+    const game = useContext(GameContext)
     const {setGameOrPlayer} = props;
     const {setCurrentPlayer} = props;
 
@@ -40,7 +43,7 @@ export default function HittingBoxScore(props) {
         })
         return teamElement
     }
-    if (playerList) {
+    if (playerList && game) {
         buildBoxscoreHitting(playerList)
     }
 
