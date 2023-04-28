@@ -44,14 +44,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors())
 
+// use the React build folder for static files
+app.use(express.static(path.join(path.dirname(__dirname), 'frontend', 'dist')))
+
 
 /* Mount routes
 --------------------------------------------------------------- */
-
-
-// When a GET request is sent to `/seed`, the pets collection is seeded
-
-
 
 // This tells our app to look at the `controllers/comments.js` file 
 // to handle all routes that begin with `localhost:3000/api/comments`
@@ -61,6 +59,10 @@ app.use('/api/users', usersCtrl)
 
 
 // The "catch-all" route: Runs for any other URL that doesn't match the above routes
+app.get('*', (req, res) => {
+    res.sendFile(path.join(path.dirname(__dirname), 'frontend', 'dist', 'index.html'));
+});
+
 app.get('*', function (req, res) {
     res.send('404')
 });
