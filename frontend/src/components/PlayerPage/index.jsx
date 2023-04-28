@@ -1,10 +1,11 @@
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState, useEffect} from 'react'
+import { useParams } from 'react-router-dom'
 
 export default function PlayerPage (props) {
     const [playerInfo, setPlayerInfo] = useState(null)
     const [playerStats, setPlayerStats] = useState(null)
-    const playerId = props.player;
+    const playerId = useParams().playerId
     let today = new Date();
 
     let playerInfoElement = <div>loading...</div>

@@ -15,7 +15,7 @@ export default function GamePage( props){
     
     const {game} = props;
     const {setGame} = props;
-    const {setGameOrPlayer} = props;
+    
     const {setCurrentPlayer} = props;
     let gameId = useParams().gameId
     useEffect(() => {
@@ -55,12 +55,12 @@ export default function GamePage( props){
                     <div className='flex flex-col'>
                         <div className = 'flex flex-row justify-center'> <LineScore  /></div>
                         <div className = 'flex flex-row mt-5 justify-center flex-wrap'>
-                            <div className='m-5'><HittingBoxScore playerList={awayPlayers}  setGameOrPlayer = {setGameOrPlayer} setCurrentPlayer={setCurrentPlayer}/></div>
-                            <div className='m-5'><HittingBoxScore playerList={homePlayers}  setGameOrPlayer = {setGameOrPlayer} setCurrentPlayer={setCurrentPlayer}/></div>
+                            <div className='m-5'><HittingBoxScore playerList={awayPlayers}   setCurrentPlayer={setCurrentPlayer}/></div>
+                            <div className='m-5'><HittingBoxScore playerList={homePlayers}  setCurrentPlayer={setCurrentPlayer}/></div>
                         </div>
                         <div className = 'flex flex-row mt-5 justify-center flex-wrap'>
-                            <div className='m-5'><PitchingBoxScore playerList={awayPlayers}  setGameOrPlayer = {setGameOrPlayer} setCurrentPlayer={setCurrentPlayer} /></div>
-                            <div className='m-5'><PitchingBoxScore playerList={homePlayers}  setGameOrPlayer = {setGameOrPlayer} setCurrentPlayer={setCurrentPlayer} /></div>
+                            <div className='m-5'><PitchingBoxScore playerList={awayPlayers}   setCurrentPlayer={setCurrentPlayer} /></div>
+                            <div className='m-5'><PitchingBoxScore playerList={homePlayers}   setCurrentPlayer={setCurrentPlayer} /></div>
                         </div>
                     </div>
                 {game.liveData && localStorage.getItem('userToken') &&

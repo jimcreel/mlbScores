@@ -21,7 +21,7 @@ export default function App() {
     const [currentGame, setCurrentGame] = useState({});
     const [schedule, setSchedule] = useState([]);
     const [currentDate, setCurrentDate] = useState(new Date());
-    const [gameOrPlayer, setGameOrPlayer] = useState('game')
+    
     const [currentPlayer, setCurrentPlayer] = useState({})
     const [loggedIn, setLoggedIn] = useState(localStorage.getItem('userToken') ? true : false)  
     
@@ -43,16 +43,16 @@ export default function App() {
             <>
             <Nav loggedIn={loggedIn} setLoggedIn = {setLoggedIn} />
             <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} />
-            <Ticker schedule={schedule} setGame={setCurrentGame} setPlayer={setCurrentPlayer} setGameOrPlayer={setGameOrPlayer}/>
+            <Ticker schedule={schedule} setGame={setCurrentGame} setPlayer={setCurrentPlayer} />
             <Routes>
                 <Route path="/" element={<Home />} />
-                {gameOrPlayer=='game' && 
-                <Route path="/game/:gameId" element={<GamePage game = {currentGame} setGame = {setCurrentGame} setCurrentPlayer={setCurrentPlayer} setGameOrPlayer={setGameOrPlayer} />}
+                
+                <Route path="/game/:gameId" element={<GamePage game = {currentGame} setGame = {setCurrentGame} setCurrentPlayer={setCurrentPlayer}  />}
                  />
-                }
-                {gameOrPlayer=='player' &&
-                <Route path="/player/:playerId" element={<PlayerPage player = {currentPlayer} />} />
-                }
+                
+                
+                <Route path="/player/:playerId" element={<PlayerPage />} />
+                
                 <Route path="/auth/:formType" element={<AuthFormPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
                 <Route path="/standings" element={<Standings />} />
 
