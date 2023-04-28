@@ -1,6 +1,7 @@
 import { Link, useNavigate} from 'react-router-dom'
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from 'react'
+import Standings from '../Standings'
 
 
 
@@ -26,6 +27,7 @@ export default function Nav (props) {
                 <Link to="/">
                     <h2 className="text-white font-bold text-2xl">MLB</h2>
                 </Link>
+                
                 </div>
                 <div className="flex-grow">
                 <ul className="flex justify-end text-gray-300 text-lg font-medium">
@@ -45,6 +47,11 @@ export default function Nav (props) {
                     )}
                     {loggedIn && (
                         <>
+                            <li key={'standings'}>
+                                <Link to="/standings">
+                                    <h4 className="px-3 py-2 hover:text-white">Standings</h4>
+                                </Link>
+                            </li>
                             <li>
                             <Link to="/profile">
                                 <h4 className="px-3 py-2 hover:text-white">Profile</h4>

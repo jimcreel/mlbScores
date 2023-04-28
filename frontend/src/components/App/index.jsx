@@ -11,6 +11,7 @@ import CommentSection from '../CommentSection'
 import PlayerPage from '../PlayerPage'
 import AuthFormPage from '../AuthFormPage'
 import {getSchedule} from '../../../utils/api'
+import Standings from '../Standings'
 
 
 
@@ -53,6 +54,7 @@ export default function App() {
                 <Route path="/player/:playerId" element={<PlayerPage player = {currentPlayer} />} />
                 }
                 <Route path="/auth/:formType" element={<AuthFormPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
+                <Route path="/standings" element={<Standings />} />
 
 
             </Routes>   

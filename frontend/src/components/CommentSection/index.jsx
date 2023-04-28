@@ -10,9 +10,7 @@ export default function CommentSection (props) {
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [createFormData, setCreateFormData] = useState({
         name: localStorage.getItem('userName'),
-        comment: '',
-        userId: getUserId().id,
-        gameId: game.gamePk
+        comment: ''
     })
 
     useEffect(() => {
@@ -44,17 +42,13 @@ export default function CommentSection (props) {
     function handleSubmit(event){
         event.preventDefault();
         let userId = getUserId()
-        
-        setShowCreateForm(!showCreateForm)
-        console.log(createFormData)
-        createComment(createFormData)
-        .then(() => refreshComments())
         setCreateFormData({
-            name: localStorage.getItem('userName'),
-            comment: '',
-            userId: userId.id,
-            gameId: game.gamePk
+            name: '',
+            comment: ''
         })
+        setShowCreateForm(!showCreateForm)
+        createComment({...createFormData, gameId: game.gamePk, userId: userId, name: userName})
+        .then(() => refreshComments())
     }
 
     let commentElements = [<p key='0'> No comments yet. Be the first to comment! </p>]
@@ -74,7 +68,7 @@ export default function CommentSection (props) {
     
     return (
         <div className='comment-section bg-gray-300 rounded-lg p-4 pb-10 mt-4 space-y-4 relative'>
-            <h1 className='text-xl font-bold'>Viewer Insights</h1>
+            <h1 className='text-xl font-bold'>Game Comments</h1>
             <button
                 onClick={toggleCreateForm}
                 className="top-0 right-5 absolute text-white hover:bg-green-800 font-bold py-2 px-4 bg-green-900 rounded cursor-pointer mr-2"
@@ -90,6 +84,7 @@ export default function CommentSection (props) {
                         name='name' 
                         value={createFormData.name} 
                         onChange={handleInputChange} 
+                        readOnly={true} 
                         placeholder = {createFormData.name}
                     />
                     <textarea
