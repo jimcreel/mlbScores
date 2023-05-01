@@ -33,6 +33,11 @@ export default function Nav (props) {
                 <ul className="flex justify-end text-gray-300 text-lg font-medium">
                     {!loggedIn && (
                         <>
+                            <li key={'standings'}>
+                                <Link to="/standings">
+                                    <h4 className="px-3 py-2 hover:text-white">Standings</h4>
+                                </Link>
+                            </li>
                             <li>
                             <Link to="/auth/signup">
                                 <h4 className="px-3 py-2 hover:text-white">Sign Up</h4>
@@ -43,6 +48,7 @@ export default function Nav (props) {
                                 <h4 className="px-3 py-2 hover:text-white">Log In</h4>
                             </Link>
                             </li>
+                            
                         </>
                     )}
                     {loggedIn && (

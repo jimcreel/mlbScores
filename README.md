@@ -2,6 +2,9 @@
 <h3> by: Jim Creel </h3>
 
 <h3><a href='https://mlbinfo.herokuapp.com'> Link to MLB Info </a> </h3>
+<img src='./READMEimg/mlbBoxScore.png' width='600' alt='mlb box score'>
+<img src='./READMEimg/mlbPlayer.png' width='600'alt='mlb player info'>
+<img src='./READMEimg/mlbStandings.png' width='600' alt='mlb standings'>
 
 <hr> </hr>
 
