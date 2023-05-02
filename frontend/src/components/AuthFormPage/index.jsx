@@ -22,17 +22,26 @@ export default function AuthFormPage(props) {
         event.preventDefault()
         // check what the URL parameter is to determine what request to make
         if (formType === 'login') {
-            const { token, name } = await logIn(formData)            
-            localStorage.setItem('userToken', token)
-            localStorage.setItem('userName', name)
+            await logIn(formData)
+            .then (apiResponse=> {
+                console.log(apiResponse)
+                let token = apiResponse.data.token
+                console.log(token)
+                localStorage.setItem('userToken', token)
+            })
         } else {
-            const { token, name } = await signUp(formData)
-            
-            localStorage.setItem('userToken', token)
-            localStorage.setItem('userName', name)
+            await signUp(formData)
+            .then (apiResponse=> {
+                console.log(apiResponse)
+                let token = apiResponse.data.token
+                console.log(token)
+                localStorage.setItem('userToken', token)
+            })
+    
 
         }
         setLoggedIn(true)
+        
         // redirect to the home page after signing/logging in
         navigate('/')
     }
@@ -45,6 +54,7 @@ export default function AuthFormPage(props) {
             <div className="bg-gray-800 rounded-lg shadow-xl p-8 w-full max-w-md">
                 <h2 className="text-3xl text-center font-bold text-gray-100 mb-8">{actionText}</h2>
                 <form className="space-y-6" onSubmit={handleSubmit}>
+                
                     <div>
                         <label className="block text-gray-100 font-bold mb-2" htmlFor="email">
                             Email
@@ -60,6 +70,7 @@ export default function AuthFormPage(props) {
                             onChange={handleInputChange}
                         />
                     </div>
+                   
                     <div>
                         <label className="block text-gray-100 font-bold mb-2" htmlFor="password">
                             Password
