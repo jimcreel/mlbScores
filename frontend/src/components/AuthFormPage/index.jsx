@@ -25,7 +25,7 @@ export default function AuthFormPage(props) {
             await logIn(formData)
             .then (apiResponse=> {
                 console.log(apiResponse)
-                let token = apiResponse.data.token
+                let token = apiResponse.token
                 console.log(token)
                 localStorage.setItem('userToken', token)
             })

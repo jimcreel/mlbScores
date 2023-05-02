@@ -15,6 +15,7 @@ export async function logIn(user) {
 }
 
 export async function createComment(comment) {
+    console.log(authHeader)
     const response = await axios.post(`/api/comments`, comment, authHeader);
     console.log(response)
     return response;
