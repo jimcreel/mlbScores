@@ -28,6 +28,7 @@ export default function AuthFormPage(props) {
                 let token = apiResponse.token
                 console.log(token)
                 localStorage.setItem('userToken', token)
+                setLoggedIn(true)
             })
         } else {
             await signUp(formData)
@@ -36,6 +37,7 @@ export default function AuthFormPage(props) {
                 let token = apiResponse.data.token
                 console.log(token)
                 localStorage.setItem('userToken', token)
+                setLoggedIn(true)
             })
     
 
