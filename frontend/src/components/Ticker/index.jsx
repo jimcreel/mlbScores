@@ -11,13 +11,18 @@ export default function Ticker(props) {
     const {setGame} = props
 
     useEffect(() => {
-        console.log('useEffect')
 
     }, [schedule])
+    let scheduleElement = <> loading...</>
     
-    let scheduleElement = <div> loading...</div>
+    if(!schedule.dates?.length > 0){
+        
+        setTimeout(() => {
+            scheduleElement = <> No games scheduled for today</>
+            }, 3000);
+        } 
    
-    if(schedule.dates) {
+    if(schedule.dates?.length > 0) {
         scheduleElement = schedule.dates[0].games.map((gameCard) => <GameCard key={gameCard.gamePk} game={gameCard} setGame={setGame}/>)
     }
     

@@ -40,17 +40,15 @@ export default function GamePage( props){
     }
 
     console.log(game)
+    let gameHTML = <>loading...</>
 
     if(!game.gamePk){
-        return (
-            <div>
-                <p> Loading... </p>
-            </div>
-
-        )
-    }else{
-        return(
-            
+        setTimeout(() => {
+            gameHTML = <> No games scheduled for today</>
+            }, 3000);
+        }
+    else{
+        gameHTML = (
             <GameContext.Provider value={game}>
                 <div>
                     <div className='flex flex-col'>
@@ -69,9 +67,15 @@ export default function GamePage( props){
                 }
                 </div> 
             </GameContext.Provider>
+        )
+    }
+        return(
+            
+            <>
+                {gameHTML}
+            </>
             
             
         )
             }
 
-}

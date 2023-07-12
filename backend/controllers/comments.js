@@ -45,7 +45,6 @@ router.get('/:id', (req, res) => {
 
 // POST /api/comments
 router.post('/', authMiddleware, (req, res) => {
-    console.log('backend: create a comment')
     
     const comment = {
         ...req.body,
