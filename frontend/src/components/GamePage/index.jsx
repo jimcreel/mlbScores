@@ -40,7 +40,7 @@ export default function GamePage( props){
     }
 
     console.log(game)
-    let gameHTML = <>loading...</>
+    let gameHTML = <div className="justify-center">loading...</div>
 
     if(!game.gamePk){
         setTimeout(() => {
