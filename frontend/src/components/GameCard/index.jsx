@@ -7,19 +7,26 @@ export default function GameCard(props) {
     const game = props.game;
     const [tickerGame, setTickerGame] = useState({game});
     const [isHovering, setIsHovering] = useState(false);
+    const [isPlayVisible, setIsPlayVisible] = useState(false);
+
     
 
    
     const setGame = props.setGame;
     
     
-    const handleMouseOver = () => {
+    const handleMouseEnter = () => {
+        console.log(previousPlayIndex)
+        console.log(previousPlayDescription)
         setIsHovering(true);
-    }
-
-    const handleMouseOut = () => {
+        setIsPlayVisible(true); 
+      };
+      
+      const handleMouseLeave = () => {
         setIsHovering(false);
-    }
+        setIsPlayVisible(false);
+      };
+      
 
     useEffect (() => {
         getGame(game.gamePk).then(apiResponse => {
@@ -110,7 +117,7 @@ export default function GameCard(props) {
 
             const resultDescription = tickerGame?.liveData?.plays?.currentPlay?.result?.description;
             cardElement = (
-              <div className="flex items-center justify-around bg-gray-100 rounded-lg p-4" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+              <div className="flex items-center justify-around bg-gray-100 rounded-lg p-4" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <div className="flex items-center justify-around ">
                   
           
@@ -156,58 +163,36 @@ export default function GameCard(props) {
             </div>
         )
     }
-    
-const resultDescription = tickerGame?.liveData?.plays?.currentPlay?.result?.description;
-        
-    return (
-        <div className="w-48 m-4 flex-shrink-0">
-            <Link to={"/game/" + game.gamePk} >
-                {cardElement}
-                {isHovering && resultDescription && (
-                <div className="absolute top-0 left-0 p-4 bg-white rounded-lg shadow-md">
-                    <p>{resultDescription}</p>
-                </div>
-                )}
-            </Link>
+    const previousPlayIndex = tickerGame?.liveData?.plays?.allPlays?.length - 2;
+    const previousPlayDescription =
+      tickerGame?.liveData?.plays?.allPlays[previousPlayIndex]?.result?.description;
+    const resultDescription =
+      tickerGame?.liveData?.plays?.currentPlay?.result?.description
+      
+      
+
+      return (
+        <div
+          className="relative w-48 m-4 flex-shrink-0"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <Link to={"/game/" + game.gamePk}>
+            {cardElement}
+            {isHovering && game.status.abstractGameState === 'Live' && (
+              <div
+                className={`absolute top-0 left-0 mt-4 ml-48 p-4 w-48 bg-white rounded-lg shadow-md z-10 ${
+                  isPlayVisible ? "opacity-100" : "opacity-0 pointer-events-none"
+                } transition-opacity duration-300`}
+              >
+                <p>{previousPlayDescription || resultDescription}</p>
+              </div>
+            )}
+          </Link>
         </div>
-
-    )
-
-}
-
-    // if (schedule.dates) {
-    // console.log(schedule.dates[0].games);
+      );
+    }
     
-    // scheduleElement = schedule.dates[0].games.map((game) => {
-    //     let awayTeamScore = null;
-    //     let homeTeamScore = null;
-    //     let gamePk = game.gamePk
-    //     if (game.teams.away.team.id) {
-    //         awayTeamScore = (
-    //         <div className="flex flex-row items-center align-baseline">
-    //             <img src={`/assets/${game.teams.away.team.id}.svg`} className="w-7" />
-    //             <p className="text-center text-base">{game.teams.away.score}</p>
-    //         </div>
-    //         );
-    //     }
-        
-    //     if (game.teams.home.team.id) {
-    //         homeTeamScore = (
-    //         <div className="flex flex-row items-center align-baseline">
-    //             <img src={`/assets/${game.teams.home.team.id}.svg`} className="w-7"/>
-    //             <p className="text-center text-xl">{game.teams.home.score}</p>
-    //         </div>
-    //         );
-    //     }
-        
-    //     return (
-    //         <div className="w-48 mr-4 flex-shrink-0">
-    //         <Link to="/game" onClick={() => handleGameClick()}>
-    //             <div className="flex flex-row  justify-around items-center align-baseline">
-    //             <p className="text-xl">{awayTeamScore}  @ {homeTeamScore} </p>
-    //             </div>
-    //         </Link>
-    //         </div>
-    //     );
-    //     });
-    // }
+    
+    
+   

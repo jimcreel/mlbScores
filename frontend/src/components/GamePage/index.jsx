@@ -40,7 +40,7 @@ export default function GamePage( props){
     }
 
     console.log(game)
-    let gameHTML = <div className="justify-center">loading...</div>
+    let gameHTML = <div className="justify-center">Select a game to display the box score</div>
 
     if(!game.gamePk){
         setTimeout(() => {
@@ -54,8 +54,14 @@ export default function GamePage( props){
                     <div className='flex flex-col'>
                         <div className = 'flex flex-row justify-center'> <LineScore  /></div>
                         <div className = 'flex flex-row mt-5 justify-center flex-wrap'>
-                            <div className='m-5'><HittingBoxScore playerList={awayPlayers}   /></div>
-                            <div className='m-5'><HittingBoxScore playerList={homePlayers}  /></div>
+                            <div className='m-5'>
+                                <h2 className="font-bold">{game.gameData.teams.away.name}</h2>
+                                <br/>
+                                <HittingBoxScore playerList={awayPlayers}   /></div>
+                            <div className='m-5'>
+                                <h2 className="font-bold">{game.gameData.teams.home.name}</h2>
+                                <br />
+                                <HittingBoxScore playerList={homePlayers}  /></div>
                         </div>
                         <div className = 'flex flex-row mt-5 justify-center flex-wrap'>
                             <div className='m-5'><PitchingBoxScore playerList={awayPlayers}    /></div>
